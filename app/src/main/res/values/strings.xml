@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">HandyMan</string>
+    <string name="txtSplashActivity">HandyMan</string>
+    <string name="txtLoginTitle">Login</string>
+    <string name="txtUserName">Username</string>
+    <string name="txtPassword">Password</string>
+    <string name="editTextUserName">Type your Username</string>
+    <string name="editTextPassword">Type your password</string>
+    <string name="txtUserType">Who are you?</string>
+    <string name="radioButtonOwner">Owner</string>
+    <string name="radioButtonWorker">Worker</string>
+    <string name="buttonLogin">Login</string>
+    <string name="txtCreateAccount">Don\'t Have an Account</string>
+    <string name="txtCreateAccountLink"><a href="">Create Account</a></string>
+    <string name="buttonCreateAccount">Create Account</string>
+</resources>
