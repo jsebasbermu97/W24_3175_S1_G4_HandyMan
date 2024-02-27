@@ -2,9 +2,9 @@
     <string name="app_name">HandyMan</string>
     <string name="txtSplashActivity">HandyMan</string>
     <string name="txtLoginTitle">Login</string>
-    <string name="txtUserName">Username</string>
+    <string name="txtUserName">Email</string>
     <string name="txtPassword">Password</string>
-    <string name="editTextUserName">Type your Username</string>
+    <string name="editTextUserName">Type your Email</string>
     <string name="editTextPassword">Type your password</string>
     <string name="txtUserType">Who are you?</string>
     <string name="radioButtonOwner">Owner</string>
