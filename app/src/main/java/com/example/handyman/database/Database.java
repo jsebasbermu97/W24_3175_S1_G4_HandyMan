@@ -22,8 +22,8 @@ public class Database extends SQLiteOpenHelper {
                 "name VARCHAR(255)," +
                 "email VARCHAR(255)," +
                 "type VARCHAR(255) DEFAULT 'owner'," +
-                "password VARCHAR(255)" +
-                ")";
+                "password VARCHAR(255)," +
+                "address VARCHAR (255))";
         db.execSQL(CREATE_OWNER_TABLE);
 
         String CREATE_WORKER_TABLE = "CREATE TABLE worker (" +
@@ -31,8 +31,8 @@ public class Database extends SQLiteOpenHelper {
                 "name VARCHAR(255)," +
                 "email VARCHAR(255)," +
                 "type VARCHAR(255) DEFAULT 'worker'," +
-                "password VARCHAR(255)" +
-                ")";
+                "password VARCHAR(255)," +
+                "address VARCHAR (255))";
         db.execSQL(CREATE_WORKER_TABLE);
 
         populateDefaultData(db);
@@ -48,26 +48,28 @@ public class Database extends SQLiteOpenHelper {
 
     private void populateDefaultData(SQLiteDatabase db) {
         // Insert default data for owners
-        insertData(db, "owner", "Pirooz", "pirooz@gmail.com", "owner", "123456");
-        insertData(db, "owner", "Sebastian", "sebastian@gmail.com", "owner", "123456");
-        insertData(db, "owner", "Alex", "alex@gmail.com", "owner", "123456");
-        insertData(db, "owner", "Maria", "maria@gmail.com", "owner", "123456");
-        insertData(db, "owner", "John", "john@gmail.com", "owner", "123456");
+        insertData(db, "owner", "Pirooz", "pirooz@gmail.com", "owner", "123456", "7520 1st St, Burnaby, BC V3N 3T2");
+        insertData(db, "owner", "Sebastian", "sebastian@gmail.com", "owner", "123456", "8042 15th Ave, Burnaby, BC V3N 1X2");
+        insertData(db, "owner", "Alex", "alex@gmail.com", "owner", "123456", "9001 Bill Fox Way, Burnaby, BC V5J 5J3");
+        insertData(db, "owner", "Maria", "maria@gmail.com", "owner", "123456","350 SE Marine Dr, Vancouver, BC V5X 2S5");
+        insertData(db, "owner", "John", "john@gmail.com", "owner", "123456","11970 88 Ave, Delta, BC V4C 3C8");
 
         // Insert default data for workers
-        insertData(db, "worker", "Carlos", "carlos@gmail.com", "worker", "123456");
-        insertData(db, "worker", "Fiona", "fiona@gmail.com", "worker", "123456");
-        insertData(db, "worker", "Erik", "erik@gmail.com", "worker", "123456");
-        insertData(db, "worker", "Diana", "diana@gmail.com", "worker", "123456");
-        insertData(db, "worker", "Bob", "bob@gmail.com", "worker", "123456");
+        insertData(db, "worker", "Carlos", "carlos@gmail.com", "worker", "123456","3000 Commercial Dr, Vancouver, BC V5N 4E2");
+        insertData(db, "worker", "Fiona", "fiona@gmail.com", "worker", "123456","2705 E 22nd Ave, Vancouver, BC V5M 3G3");
+        insertData(db, "worker", "Erik", "erik@gmail.com", "worker", "123456","4330 Sanderson Way, Burnaby, BC V5G 4X1");
+        insertData(db, "worker", "Diana", "diana@gmail.com", "worker", "123456","6260 Killarney St, Vancouver, BC V5S 2X7");
+        insertData(db, "worker", "Bob", "bob@gmail.com", "worker", "123456","8683 Kerr St, Vancouver, BC V5S 0A4");
     }
 
-    private void insertData(SQLiteDatabase db, String tableName, String name, String email, String type, String password) {
+    private void insertData(SQLiteDatabase db, String tableName, String name, String email, String type,
+                            String password, String address) {
         ContentValues values = new ContentValues();
         values.put("name", name);
         values.put("email", email);
         values.put("type", type);
         values.put("password", password);
+        values.put("address", address);
         db.insert(tableName, null, values);
     }
 

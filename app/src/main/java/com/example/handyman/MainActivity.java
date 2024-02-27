@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 if(db.checkUserCredentials(username, password)) {
                     Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
                     // TODO bring up the user page based on their type
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Login failed. Invalid username or password", Toast.LENGTH_LONG).show();
                 }
