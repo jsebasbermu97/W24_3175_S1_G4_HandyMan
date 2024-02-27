@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "28903348090",
+    "project_id": "handyman-c8d0a",
+    "storage_bucket": "handyman-c8d0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28903348090:android:2e7a3413386669923068c3",
+        "android_client_info": {
+          "package_name": "com.example.handyman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28903348090-6pv0t957vbc8bsvr88rb2lbjpk0enk2o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.handyman",
+            "certificate_hash": "4bd04d372ff1926c10c59d2f3622f8b66c677479"
+          }
+        },
+        {
+          "client_id": "28903348090-a4466ja9qbe9qme6kmnisbkoh5qcjvsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArB_g0ttQNpne_ZjLuSsjLrB8z7D6WfPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28903348090-a4466ja9qbe9qme6kmnisbkoh5qcjvsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
