@@ -1,10 +1,15 @@
 package com.example.handyman.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.handyman.security.SecurityUtils;
 
 public class Database extends SQLiteOpenHelper {
 
@@ -17,6 +22,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         String CREATE_OWNER_TABLE = "CREATE TABLE owner (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name VARCHAR(255)," +
@@ -65,30 +71,57 @@ public class Database extends SQLiteOpenHelper {
 
     public void addOwner(SQLiteDatabase db, String name, String email, String password) {
         ContentValues values = new ContentValues();
+        String hashedPassword = SecurityUtils.hashPassword(password);
         values.put("name", name);
         values.put("email", email);
-        values.put("password", password);
+        values.put("password", hashedPassword);
         db.insert("owner", null, values);
     }
 
     public void addWorker(SQLiteDatabase db, String name, String email, String profession, String password) {
         ContentValues values = new ContentValues();
+        String hashedPassword = SecurityUtils.hashPassword(password);
         values.put("name", name);
         values.put("email", email);
         values.put("profession", profession);
-        values.put("password", password);
+        values.put("password", hashedPassword);
         db.insert("worker", null, values);
     }
 
+
     public boolean checkUserCredentials(String email, String password) {
+        if (checkUserCredentials("worker", email, password)) {
+            return true;
+        } else return checkUserCredentials("owner", email, password);
+    }
+
+    private boolean checkUserCredentials(String tableName, String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {"id"};
-        String selection = "email = ? AND password = ?";
-        String[] selectionArgs = {email, password};
-        Cursor cursor = db.query("owner", columns, selection, selectionArgs, null, null, null);
-        boolean userExists = cursor.moveToFirst();
-        cursor.close();
-        return userExists;
+        String[] columns = {"password"};
+        String selection = "email = ?";
+        String[] selectionArgs = {email};
+        Cursor cursor = db.query(tableName, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int passwordColumnIndex = cursor.getColumnIndex("password");
+            if (passwordColumnIndex != -1) {
+                String storedHashedPassword = cursor.getString(passwordColumnIndex);
+                String inputHashedPassword = SecurityUtils.hashPassword(password);
+                cursor.close();
+                db.close();
+                return storedHashedPassword.equals(inputHashedPassword);
+            }
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+        return false;
+    }
+
+    public static void deleteDatabase(Context context) {
+        context.deleteDatabase(DATABASE_NAME);
     }
 
 
