@@ -59,6 +59,8 @@ public class WorkerCreateAccountActivity extends AppCompatActivity {
 
                 Database database = new Database(WorkerCreateAccountActivity.this);
                 SQLiteDatabase db = database.getWritableDatabase();
+
+                // TODO: add google map to database
                 database.addWorker(db, txtNameString, txtEmailString, txtProfessionString, txtPasswordString);
 
                 Toast.makeText(WorkerCreateAccountActivity.this, "Account created successfully!", Toast.LENGTH_LONG).show();
