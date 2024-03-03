@@ -13,10 +13,10 @@
         android:theme="@style/Theme.HandyMan"
         tools:targetApi="31">
         <activity
-            android:name=".owner.OwnerCreateAccountActivity"
+            android:name=".worker.WorkerCreateAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".worker.WorkerCreateAccountActivity"
+            android:name=".owner.OwnerCreateAccountActivity"
             android:exported="false" />
         <activity
             android:name=".CreateAccountActivity"

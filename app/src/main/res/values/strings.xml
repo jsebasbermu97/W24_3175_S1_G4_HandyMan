@@ -14,4 +14,10 @@
     <string name="txtCreateAccountLink"><a href="">Create Account</a></string>
     <string name="buttonCreateAccount">Create Account</string>
     <string name="default_web_client_id">28903348090-6pv0t957vbc8bsvr88rb2lbjpk0enk2o.apps.googleusercontent.com</string>
+    <string name="txtName">Full Name:</string>
+    <string name="txtEmail">Email:</string>
+    <string name="txtCreatePassword">Password:</string>
+    <string name="txtProfession">Profession:</string>
+    <string name="txtAddress">Address:</string>
+    <string name="btnCreateAccount">Create Account</string>
 </resources>

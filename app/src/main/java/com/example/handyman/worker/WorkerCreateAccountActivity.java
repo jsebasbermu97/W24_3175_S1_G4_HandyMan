@@ -2,9 +2,15 @@ package com.example.handyman.worker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.handyman.R;
+import com.example.handyman.database.Database;
 
 public class WorkerCreateAccountActivity extends AppCompatActivity {
 
@@ -12,5 +18,55 @@ public class WorkerCreateAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker_create_account);
+
+        Button buttonCreateAccount = findViewById(R.id.buttonCreateAccount);
+
+        buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText txtName = findViewById(R.id.editTextName);
+                String txtNameString = txtName.getText().toString();
+                if (txtNameString.isEmpty()){
+                    Toast.makeText(WorkerCreateAccountActivity.this, "Please enter your name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                EditText txtEmail = findViewById(R.id.editTextEmailAddress);
+                String txtEmailString = txtEmail.getText().toString();
+                if (txtEmailString.isEmpty()){
+                    Toast.makeText(WorkerCreateAccountActivity.this, "Please enter your email address", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                EditText txtPassword = findViewById(R.id.editTextCreatePassword);
+                String txtPasswordString = txtPassword.getText().toString();
+                if (txtPasswordString.isEmpty()) {
+                    Toast.makeText(WorkerCreateAccountActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                EditText txtProfession = findViewById(R.id.editTextProfession);
+                String txtProfessionString = txtProfession.getText().toString();
+                if (txtProfessionString.isEmpty()) {
+                    Toast.makeText(WorkerCreateAccountActivity.this, "Please enter your profession", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // ------------------- TODO: add the details for the google map here ------------------
+
+
+                // ------------------------------------------------------------------------------------
+
+                Database database = new Database(WorkerCreateAccountActivity.this);
+                SQLiteDatabase db = database.getWritableDatabase();
+                database.addWorker(db, txtNameString, txtEmailString, txtProfessionString, txtPasswordString);
+
+                Toast.makeText(WorkerCreateAccountActivity.this, "Account created successfully!", Toast.LENGTH_LONG).show();
+                txtName.setText("");
+                txtEmail.setText("");
+                txtPassword.setText("");
+                txtProfession.setText("");
+            }
+        });
     }
 }

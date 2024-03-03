@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Database extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "handyman.db";
+    private static final String DATABASE_NAME = "handyman.sqlite";
     private static final int DATABASE_VERSION = 1;
 
     public Database(Context context) {
@@ -31,6 +31,7 @@ public class Database extends SQLiteOpenHelper {
                 "name VARCHAR(255)," +
                 "email VARCHAR(255)," +
                 "type VARCHAR(255) DEFAULT 'worker'," +
+                "profession VARCHAR(255)," +
                 "password VARCHAR(255)" +
                 ")";
         db.execSQL(CREATE_WORKER_TABLE);
@@ -48,27 +49,35 @@ public class Database extends SQLiteOpenHelper {
 
     private void populateDefaultData(SQLiteDatabase db) {
         // Insert default data for owners
-        insertData(db, "owner", "Pirooz", "pirooz@gmail.com", "owner", "123456");
-        insertData(db, "owner", "Sebastian", "sebastian@gmail.com", "owner", "123456");
-        insertData(db, "owner", "Alex", "alex@gmail.com", "owner", "123456");
-        insertData(db, "owner", "Maria", "maria@gmail.com", "owner", "123456");
-        insertData(db, "owner", "John", "john@gmail.com", "owner", "123456");
+        addOwner(db,"Pirooz", "pirooz@gmail.com", "123456");
+        addOwner(db,"Sebastian", "sebastian@gmail.com", "123456");
+        addOwner(db,  "Alex", "alex@gmail.com", "123456");
+        addOwner(db,"Maria", "maria@gmail.com", "123456");
+        addOwner(db,"John", "john@gmail.com", "123456");
 
         // Insert default data for workers
-        insertData(db, "worker", "Carlos", "carlos@gmail.com", "worker", "123456");
-        insertData(db, "worker", "Fiona", "fiona@gmail.com", "worker", "123456");
-        insertData(db, "worker", "Erik", "erik@gmail.com", "worker", "123456");
-        insertData(db, "worker", "Diana", "diana@gmail.com", "worker", "123456");
-        insertData(db, "worker", "Bob", "bob@gmail.com", "worker", "123456");
+        addWorker(db,"Carlos", "carlos@gmail.com", "profession1", "123456");
+        addWorker(db,"Fiona", "fiona@gmail.com", "profession2", "123456");
+        addWorker(db,"Erik", "erik@gmail.com", "profession3", "123456");
+        addWorker(db,"Diana", "diana@gmail.com", "profession4", "123456");
+        addWorker(db,"Bob", "bob@gmail.com", "profession5", "123456");
     }
 
-    private void insertData(SQLiteDatabase db, String tableName, String name, String email, String type, String password) {
+    public void addOwner(SQLiteDatabase db, String name, String email, String password) {
         ContentValues values = new ContentValues();
         values.put("name", name);
         values.put("email", email);
-        values.put("type", type);
         values.put("password", password);
-        db.insert(tableName, null, values);
+        db.insert("owner", null, values);
+    }
+
+    public void addWorker(SQLiteDatabase db, String name, String email, String profession, String password) {
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        values.put("email", email);
+        values.put("profession", profession);
+        values.put("password", password);
+        db.insert("worker", null, values);
     }
 
     public boolean checkUserCredentials(String email, String password) {
@@ -81,5 +90,6 @@ public class Database extends SQLiteOpenHelper {
         cursor.close();
         return userExists;
     }
+
 
 }

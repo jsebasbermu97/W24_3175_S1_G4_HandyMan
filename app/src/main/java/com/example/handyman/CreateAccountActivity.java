@@ -12,8 +12,6 @@ import android.widget.Toast;
 import com.example.handyman.owner.OwnerCreateAccountActivity;
 import com.example.handyman.worker.WorkerCreateAccountActivity;
 
-import java.security.acl.Owner;
-
 public class CreateAccountActivity extends AppCompatActivity {
 
     @Override
@@ -21,8 +19,8 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        Button buttonCreateAccount = findViewById(R.id.buttonCreateAccount);
-        buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
+        Button buttonAccount = findViewById(R.id.buttonAccount);
+        buttonAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RadioGroup radioGroup = findViewById(R.id.radioGroupUserType);
