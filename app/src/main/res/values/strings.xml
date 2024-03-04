@@ -20,10 +20,12 @@
     <string name="txtProfession">Profession:</string>
     <string name="txtAddress">Address:</string>
     <string name="btnCreateAccount">Create Account</string>
-<!--    <string-array name="txtProfession">-->
-<!--        <item>Carpenter</item>-->
-<!--        <item>Electrician</item>-->
-<!--        <item>Plumber</item>-->
-<!--        <item>Painter</item>-->
-<!--    </string-array>-->
+    <string name="txtProfileTitle" />
+    <string name="txtProfileTitle1">Your Profile</string>
+    <!--    <string-array name="txtProfession">-->
+    <!--        <item>Carpenter</item>-->
+    <!--        <item>Electrician</item>-->
+    <!--        <item>Plumber</item>-->
+    <!--        <item>Painter</item>-->
+    <!--    </string-array>-->
 </resources>

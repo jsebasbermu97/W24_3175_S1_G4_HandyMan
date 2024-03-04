@@ -26,7 +26,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 RadioGroup radioGroup = findViewById(R.id.radioGroupUserType);
                 int selected = radioGroup.getCheckedRadioButtonId();
                 if (selected == -1) {
-                    Toast.makeText(CreateAccountActivity.this, "You muse select one of the options", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAccountActivity.this, "You must select one of the options", Toast.LENGTH_SHORT).show();
                 } else if (selected == R.id.radioButtonOwner) {
                     startActivity(new Intent(CreateAccountActivity.this, OwnerCreateAccountActivity.class));
                 } else {

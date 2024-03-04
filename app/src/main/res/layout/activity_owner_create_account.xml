@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/textViewName"
+        android:id="@+id/textViewWorkerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewWorkerName" />
 
     <TextView
         android:id="@+id/textViewPassword"
@@ -59,7 +59,7 @@
         android:ems="10"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewName"
+        app:layout_constraintStart_toEndOf="@+id/textViewWorkerName"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText

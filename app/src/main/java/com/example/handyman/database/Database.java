@@ -38,7 +38,8 @@ public class Database extends SQLiteOpenHelper {
                 "email VARCHAR(255)," +
                 "type VARCHAR(255) DEFAULT 'worker'," +
                 "profession VARCHAR(255)," +
-                "password VARCHAR(255)" +
+                "password VARCHAR(255)," +
+                "address VARCHAR(255)" +
                 ")";
         db.execSQL(CREATE_WORKER_TABLE);
 
@@ -62,11 +63,11 @@ public class Database extends SQLiteOpenHelper {
         addOwner(db,"John", "john@gmail.com", "123456");
 
         // Insert default data for workers
-        addWorker(db,"Carlos", "carlos@gmail.com", "profession1", "123456");
-        addWorker(db,"Fiona", "fiona@gmail.com", "profession2", "123456");
-        addWorker(db,"Erik", "erik@gmail.com", "profession3", "123456");
-        addWorker(db,"Diana", "diana@gmail.com", "profession4", "123456");
-        addWorker(db,"Bob", "bob@gmail.com", "profession5", "123456");
+        addWorker(db,"Carlos", "carlos@gmail.com", "profession1", "123456", "7520 1st St, Burnaby, BC V3N 3T2");
+        addWorker(db,"Fiona", "fiona@gmail.com", "profession2", "123456","8042 15th Ave, Burnaby, BC V3N 1X2");
+        addWorker(db,"Erik", "erik@gmail.com", "profession3", "123456","350 SE Marine Dr, Vancouver, BC V5X 2S5");
+        addWorker(db,"Diana", "diana@gmail.com", "profession4", "123456", "9001 Bill Fox Way, Burnaby, BC V5J 5J3");
+        addWorker(db,"Bob", "bob@gmail.com", "profession5", "123456", "11970 88 Ave, Delta, BC V4C 3C8");
     }
 
     public void addOwner(SQLiteDatabase db, String name, String email, String password) {
@@ -78,13 +79,15 @@ public class Database extends SQLiteOpenHelper {
         db.insert("owner", null, values);
     }
 
-    public void addWorker(SQLiteDatabase db, String name, String email, String profession, String password) {
+    public void addWorker(SQLiteDatabase db, String name, String email, String profession, String password,
+                          String address) {
         ContentValues values = new ContentValues();
         String hashedPassword = SecurityUtils.hashPassword(password);
         values.put("name", name);
         values.put("email", email);
         values.put("profession", profession);
         values.put("password", hashedPassword);
+        values.put("address", address);
         db.insert("worker", null, values);
     }
 
