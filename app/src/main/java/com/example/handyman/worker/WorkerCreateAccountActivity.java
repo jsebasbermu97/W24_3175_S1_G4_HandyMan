@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.handyman.R;
@@ -45,10 +47,10 @@ public class WorkerCreateAccountActivity extends AppCompatActivity {
                     return;
                 }
 
-                EditText txtProfession = findViewById(R.id.editTextProfession);
-                String txtProfessionString = txtProfession.getText().toString();
+                Spinner spinnerProfession = findViewById(R.id.spinnerProfession);
+                String txtProfessionString = spinnerProfession.getSelectedItem().toString();
                 if (txtProfessionString.isEmpty()) {
-                    Toast.makeText(WorkerCreateAccountActivity.this, "Please enter your profession", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WorkerCreateAccountActivity.this, "Please select your profession", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -67,7 +69,6 @@ public class WorkerCreateAccountActivity extends AppCompatActivity {
                 txtName.setText("");
                 txtEmail.setText("");
                 txtPassword.setText("");
-                txtProfession.setText("");
             }
         });
     }
