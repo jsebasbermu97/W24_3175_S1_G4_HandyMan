@@ -2,9 +2,16 @@ package com.example.handyman.owner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.handyman.R;
+import com.example.handyman.database.Database;
+import com.example.handyman.worker.WorkerCreateAccountActivity;
 
 public class OwnerCreateAccountActivity extends AppCompatActivity {
 
@@ -12,5 +19,49 @@ public class OwnerCreateAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_create_account);
+
+        Button buttonCreateAccount = findViewById(R.id.buttonCreateAccount);
+
+        buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText txtName = findViewById(R.id.editTextName);
+                String txtNameString = txtName.getText().toString();
+                if (txtNameString.isEmpty()){
+                    Toast.makeText(OwnerCreateAccountActivity.this, "Please enter your name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                EditText txtEmail = findViewById(R.id.editTextEmailAddress);
+                String txtEmailString = txtEmail.getText().toString();
+                if (txtEmailString.isEmpty()){
+                    Toast.makeText(OwnerCreateAccountActivity.this, "Please enter your email address", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                EditText txtPassword = findViewById(R.id.editTextCreatePassword);
+                String txtPasswordString = txtPassword.getText().toString();
+                if (txtPasswordString.isEmpty()) {
+                    Toast.makeText(OwnerCreateAccountActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // ------------------- TODO: add the details for the google map here ------------------
+
+
+                // ------------------------------------------------------------------------------------
+
+                Database database = new Database(OwnerCreateAccountActivity.this);
+                SQLiteDatabase db = database.getWritableDatabase();
+
+                // TODO: add google map to database
+                database.addOwner(db, txtNameString, txtEmailString, txtPasswordString);
+
+                Toast.makeText(OwnerCreateAccountActivity.this, "Account created successfully!", Toast.LENGTH_LONG).show();
+                txtName.setText("");
+                txtEmail.setText("");
+                txtPassword.setText("");
+            }
+        });
     }
 }
