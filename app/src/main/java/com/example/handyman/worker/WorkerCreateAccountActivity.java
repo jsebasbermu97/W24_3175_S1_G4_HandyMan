@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -22,6 +23,8 @@ public class WorkerCreateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_worker_create_account);
 
         Button buttonCreateAccount = findViewById(R.id.buttonCreateAccount);
+        Spinner spinnerProfession = findViewById(R.id.spinnerProfession);
+        spinnerProfession.setAdapter(new ArrayAdapter<Professions>(WorkerCreateAccountActivity.this, android.R.layout.simple_spinner_item, Professions.values()));
 
         buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +51,7 @@ public class WorkerCreateAccountActivity extends AppCompatActivity {
                 }
 
                 Spinner spinnerProfession = findViewById(R.id.spinnerProfession);
+//                spinnerProfession.setAdapter(new ArrayAdapter<Professions>(WorkerCreateAccountActivity.this, android.R.layout.simple_spinner_item, Professions.values()));
                 String txtProfessionString = spinnerProfession.getSelectedItem().toString();
                 if (txtProfessionString.isEmpty()) {
                     Toast.makeText(WorkerCreateAccountActivity.this, "Please select your profession", Toast.LENGTH_SHORT).show();
