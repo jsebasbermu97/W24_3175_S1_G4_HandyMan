@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.handyman.database.Database;
+import com.example.handyman.main.MainPageActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -56,8 +57,9 @@ public class MainActivity extends AppCompatActivity {
                 Database db = new Database(MainActivity.this);
 
                 if(db.checkUserCredentials(username, password)) {
-                    Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
-                    // TODO bring up the user page based on their type
+                    // login successful
+                    Intent intent = new Intent(MainActivity.this, MainPageActivity.class);
+                    MainActivity.this.startActivity(intent);
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Login failed. Invalid username or password", Toast.LENGTH_LONG).show();
@@ -125,10 +127,19 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        // Google Authentication successful
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(MainActivity.this, "Authentication Successful.", Toast.LENGTH_SHORT).show();
-                            // TODO bring up the user page based on their type
+                            if (user != null) {
+                                // Extract name and email from the Google account
+                                String name = user.getDisplayName();
+                                String email = user.getEmail();
+
+                                Database database = new Database(MainActivity.this);
+                                SQLiteDatabase db = database.getWritableDatabase();
+                                database.addGoogleOwner(db, name, email);
+                            }
+                            startActivity(new Intent(MainActivity.this, MainPageActivity.class));
                         } else {
                             Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }

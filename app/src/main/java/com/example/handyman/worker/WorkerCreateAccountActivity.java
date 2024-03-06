@@ -53,7 +53,6 @@ public class WorkerCreateAccountActivity extends AppCompatActivity {
                 }
 
                 Spinner spinnerProfession = findViewById(R.id.spinnerProfession);
-//                spinnerProfession.setAdapter(new ArrayAdapter<Professions>(WorkerCreateAccountActivity.this, android.R.layout.simple_spinner_item, Professions.values()));
                 String txtProfessionString = spinnerProfession.getSelectedItem().toString();
                 if (txtProfessionString.isEmpty()) {
                     Toast.makeText(WorkerCreateAccountActivity.this, "Please select your profession", Toast.LENGTH_SHORT).show();
