@@ -66,6 +66,10 @@
     </string>
     <string name="txtCategories">Categories</string>
     <string name="txtCarpenter">Carpenters List</string>
+    <string name="txtElectrician">Electricians List</string>
+    <string name="txtPlumber">Plumbers List</string>
+    <string name="txtPainters" />
+    <string name="textPainters">Painters List</string>
     <!--    <string-array name="txtProfession">-->
     <!--        <item>Carpenter</item>-->
     <!--        <item>Electrician</item>-->

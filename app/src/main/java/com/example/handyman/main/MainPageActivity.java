@@ -16,6 +16,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.handyman.R;
 import com.example.handyman.adapters.ProfessionAdapter;
 import com.example.handyman.professions.CarpenterActivity;
+import com.example.handyman.professions.ElectricianActivity;
+import com.example.handyman.professions.PainterActivity;
+import com.example.handyman.professions.PlumberActivity;
 import com.example.handyman.worker.Professions;
 
 import java.util.List;
@@ -46,7 +49,17 @@ public class MainPageActivity extends AppCompatActivity {
 
                 if (selectedProfession.equals("Carpenter")) {
                     startActivity(new Intent(MainPageActivity.this, CarpenterActivity.class));
+                } else if(selectedProfession.equals("Electrician")){
+                    startActivity(new Intent(MainPageActivity.this, ElectricianActivity.class));
+                } else if(selectedProfession.equals("Plumber")){
+                    startActivity(new Intent(MainPageActivity.this, PlumberActivity.class));
+                } else if(selectedProfession.equals("Painter")){
+                    startActivity(new Intent(MainPageActivity.this, PainterActivity.class));
                 }
+
+                // Add logic for other professions
+                // Create Activity for other professions (same as the CarpenterActivity)
+                // Create the xml file for other professions
             }
         });
 
