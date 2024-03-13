@@ -1,5 +1,6 @@
 package com.example.handyman.job;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.handyman.R;
 import com.example.handyman.database.Database;
+import com.example.handyman.main.MainPageActivity;
 
 public class CreateJobActivity extends AppCompatActivity {
 
@@ -32,16 +34,17 @@ public class CreateJobActivity extends AppCompatActivity {
 
         Button buttonCreateJob = findViewById(R.id.buttonCreateJobFinal);
         buttonCreateJob.setOnClickListener(v -> {
+            String title = ((EditText) findViewById(R.id.editTextJobTitle)).getText().toString();
             String description = ((EditText) findViewById(R.id.editTextJobDescription)).getText().toString();
             String startDate = ((EditText) findViewById(R.id.editTextJobStartDate)).getText().toString();
             String endDate = ((EditText) findViewById(R.id.editTextJobEndDate)).getText().toString();
             double budget = Double.parseDouble(((EditText) findViewById(R.id.editTextJobBudget)).getText().toString());
 
             Database db = new Database(CreateJobActivity.this);
-            db.addJob(workerId, ownerId, description, startDate, endDate, budget);
+            db.addJob(workerId, ownerId, title, description, startDate, endDate, budget);
 
             Toast.makeText(CreateJobActivity.this, "Job Created Successfully", Toast.LENGTH_SHORT).show();
-            finish();
+            startActivity(new Intent(CreateJobActivity.this, MainPageActivity.class));
         });
     }
 }

@@ -9,24 +9,26 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.handyman.R;
+import com.example.handyman.job.Job;
 
 import java.util.List;
 
-public class ProfessionAdapter extends BaseAdapter {
-    List<String> adapterProfessionList;
+public class JobAdapter extends BaseAdapter {
 
-    public ProfessionAdapter(List<String> adapterProfessionList) {
-        this.adapterProfessionList = adapterProfessionList;
+    List<Job> adapterJobList;
+
+    public JobAdapter(List<Job> adapterJobList) {
+        this.adapterJobList = adapterJobList;
     }
 
     @Override
     public int getCount() {
-        return adapterProfessionList.size();
+        return adapterJobList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return adapterProfessionList.get(position);
+        return adapterJobList.get(position);
     }
 
     @Override
@@ -37,12 +39,21 @@ public class ProfessionAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_categories, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_jobs, parent, false);
         }
 
         TextView txtViewCategory = convertView.findViewById(R.id.textViewJob);
-        txtViewCategory.setText(adapterProfessionList.get(position));
+        Job job = adapterJobList.get(position);
+        String title = job.getTitle();
+        txtViewCategory.setText(title != null ? title : "No Title");
         txtViewCategory.setGravity(Gravity.CENTER_VERTICAL);
         return convertView;
     }
+
+    public void updateData(List<Job> newJobs) {
+        adapterJobList.clear();
+        adapterJobList.addAll(newJobs);
+        notifyDataSetChanged();
+    }
+
 }

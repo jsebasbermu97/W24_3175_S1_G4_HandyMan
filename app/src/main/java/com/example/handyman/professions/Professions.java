@@ -1,4 +1,4 @@
-package com.example.handyman.worker;
+package com.example.handyman.professions;
 
 import java.util.ArrayList;
 import java.util.Collections;

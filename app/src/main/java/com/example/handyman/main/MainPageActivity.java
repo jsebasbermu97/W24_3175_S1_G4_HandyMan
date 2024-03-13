@@ -1,68 +1,57 @@
 package com.example.handyman.main;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.handyman.R;
-import com.example.handyman.adapters.ProfessionAdapter;
-import com.example.handyman.professions.CarpenterActivity;
-import com.example.handyman.professions.ElectricianActivity;
-import com.example.handyman.professions.PainterActivity;
-import com.example.handyman.professions.PlumberActivity;
-import com.example.handyman.worker.Professions;
-
-import java.util.List;
+import com.example.handyman.job.JobsFragment;
+import com.example.handyman.professions.CategoriesFragment;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainPageActivity extends AppCompatActivity {
+
+    ViewPager2 viewPager;
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_page);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        List<String> professions = Professions.getProfessions();
+        viewPager = findViewById(R.id.view_pager);
+        tabLayout = findViewById(R.id.tabs);
 
-        ListView listViewCategories = findViewById(R.id.listViewCategories);
-        ProfessionAdapter professionAdapter = new ProfessionAdapter(professions);
-        listViewCategories.setAdapter(professionAdapter);
+        // Set up the ViewPager with the sections adapter.
+        viewPager.setAdapter(new SectionsPagerAdapter(this));
 
-        listViewCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedProfession = listViewCategories.getItemAtPosition(position).toString();
+        // Link the TabLayout with the ViewPager2
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(position == 0 ? "Categories" : "Jobs")).attach();
+    }
 
-                if (selectedProfession.equals("Carpenter")) {
-                    startActivity(new Intent(MainPageActivity.this, CarpenterActivity.class));
-                } else if(selectedProfession.equals("Electrician")){
-                    startActivity(new Intent(MainPageActivity.this, ElectricianActivity.class));
-                } else if(selectedProfession.equals("Plumber")){
-                    startActivity(new Intent(MainPageActivity.this, PlumberActivity.class));
-                } else if(selectedProfession.equals("Painter")){
-                    startActivity(new Intent(MainPageActivity.this, PainterActivity.class));
-                }
+    private static class SectionsPagerAdapter extends FragmentStateAdapter {
 
-                // Add logic for other professions
-                // Create Activity for other professions (same as the CarpenterActivity)
-                // Create the xml file for other professions
+        public SectionsPagerAdapter(AppCompatActivity fa) {
+            super(fa);
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            if (position == 0) {
+                return new CategoriesFragment();
+            } else {
+                return new JobsFragment();
             }
-        });
+        }
 
-
+        @Override
+        public int getItemCount() {
+            return 2; // there are two tabs
+        }
     }
 }

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.handyman.job.Job;
 import com.example.handyman.security.SecurityUtils;
 import com.example.handyman.worker.Worker;
 
@@ -52,6 +53,7 @@ public class Database extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "worker_id INTEGER," +
                 "owner_id INTEGER," +
+                "title TEXT," +
                 "description TEXT," +
                 "start_date TEXT," +
                 "end_date TEXT," +
@@ -96,11 +98,12 @@ public class Database extends SQLiteOpenHelper {
         db.insert("owner", null, values);
     }
 
-    public void addJob(int workerId, int ownerId, String description, String startDate, String endDate, double budget) {
+    public void addJob(int workerId, int ownerId, String title, String description, String startDate, String endDate, double budget) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("worker_id", workerId);
         values.put("owner_id", ownerId);
+        values.put("title", title);
         values.put("description", description);
         values.put("start_date", startDate);
         values.put("end_date", endDate);
@@ -177,6 +180,30 @@ public class Database extends SQLiteOpenHelper {
         }
         db.close();
         return ownerId;
+    }
+
+    public List<Job> getJobsForUser(int userId) {
+        List<Job> jobs = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] selectionArgs = { String.valueOf(userId) };
+        Cursor cursor = db.rawQuery("SELECT * FROM job WHERE owner_id = ?", selectionArgs);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Job job = new Job();
+                job.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+                job.setTitle(cursor.getString(cursor.getColumnIndexOrThrow("title")));
+                job.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")));
+                job.setStartDate(cursor.getString(cursor.getColumnIndexOrThrow("start_date")));
+                job.setEndDate(cursor.getString(cursor.getColumnIndexOrThrow("end_date")));
+                job.setBudget(cursor.getInt(cursor.getColumnIndexOrThrow("budget")));
+                jobs.add(job);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return jobs;
     }
 
 
