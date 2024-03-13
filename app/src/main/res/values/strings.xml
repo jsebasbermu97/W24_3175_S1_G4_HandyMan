@@ -21,7 +21,7 @@
     <string name="txtAddress">Address:</string>
     <string name="btnCreateAccount">Create Account</string>
     <string name="txtProfileTitle" />
-    <string name="txtProfileTitle1">Your Profile</string>
+    <string name="txtProfileTitle1">Worker Profile</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -70,6 +70,7 @@
     <string name="txtPlumber">Plumbers List</string>
     <string name="txtPainters" />
     <string name="textPainters">Painters List</string>
+    <string name="txtCreateJob">Assign a Job</string>
     <!--    <string-array name="txtProfession">-->
     <!--        <item>Carpenter</item>-->
     <!--        <item>Electrician</item>-->

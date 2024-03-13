@@ -45,7 +45,20 @@ public class Database extends SQLiteOpenHelper {
                 "password VARCHAR(255)," +
                 "address VARCHAR(255)" +
                 ")";
+
         db.execSQL(CREATE_WORKER_TABLE);
+
+        String CREATE_JOB_TABLE = "CREATE TABLE job (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "worker_id INTEGER," +
+                "owner_id INTEGER," +
+                "description TEXT," +
+                "start_date TEXT," +
+                "end_date TEXT," +
+                "budget DOUBLE" +
+                ")";
+
+        db.execSQL(CREATE_JOB_TABLE);
 
         populateDefaultData(db);
     }
@@ -81,6 +94,19 @@ public class Database extends SQLiteOpenHelper {
         values.put("email", email);
         values.put("password", hashedPassword);
         db.insert("owner", null, values);
+    }
+
+    public void addJob(int workerId, int ownerId, String description, String startDate, String endDate, double budget) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("worker_id", workerId);
+        values.put("owner_id", ownerId);
+        values.put("description", description);
+        values.put("start_date", startDate);
+        values.put("end_date", endDate);
+        values.put("budget", budget);
+        db.insert("job", null, values);
+        db.close();
     }
 
     public void addGoogleOwner(SQLiteDatabase db, String name, String email) {
@@ -126,6 +152,33 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return workers;
     }
+
+    public int getOwnerIdByEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int ownerId = -1;
+
+        String[] projection = {"id"};
+        String selection = "email = ?";
+        String[] selectionArgs = { email };
+
+        Cursor cursor = db.query(
+                "owner",
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            ownerId = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+            cursor.close();
+        }
+        db.close();
+        return ownerId;
+    }
+
 
 
     public boolean checkUserCredentials(String email, String password) {

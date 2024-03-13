@@ -4,13 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.handyman.R;
+import com.example.handyman.job.CreateJobActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -34,7 +39,7 @@ public class WorkerProfileActivity extends AppCompatActivity implements OnMapRea
         setContentView(R.layout.activity_worker_profile);
 
         Bundle bundle = getIntent().getExtras();
-
+        int workerId = bundle.getInt("id", -1);
         String workerName = bundle.getString("Name", "");
         String workerProfession = bundle.getString("Profession", "");
         String workerAddress = bundle.getString("Address", "");
@@ -50,6 +55,21 @@ public class WorkerProfileActivity extends AppCompatActivity implements OnMapRea
         // Google maps extension here
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
+
+        Button buttonCreateJob = findViewById(R.id.buttonCreateJob);
+        buttonCreateJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WorkerProfileActivity.this, CreateJobActivity.class);
+                intent.putExtra("workerId", workerId);
+
+                // get owner id from SharedPreference
+                SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+                intent.putExtra("ownerId", sharedPreferences.getInt("ownerId", -1));
+
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -95,5 +115,6 @@ public class WorkerProfileActivity extends AppCompatActivity implements OnMapRea
         }
         return null;
     }
+
 
 }

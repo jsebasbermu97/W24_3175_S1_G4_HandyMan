@@ -3,7 +3,9 @@ package com.example.handyman;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -58,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
 
                 if(db.checkUserCredentials(username, password)) {
                     // login successful
+                    // save owner id in shared preferences
+                    int ownerId = db.getOwnerIdByEmail(username);
+                    saveOwnerId(ownerId);
+
                     Intent intent = new Intent(MainActivity.this, MainPageActivity.class);
                     MainActivity.this.startActivity(intent);
 
@@ -138,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
                                 Database database = new Database(MainActivity.this);
                                 SQLiteDatabase db = database.getWritableDatabase();
                                 database.addGoogleOwner(db, name, email);
+                                // save owner id in shared preferences
+                                int ownerId = database.getOwnerIdByEmail(email);
+                                saveOwnerId(ownerId);
                             }
                             startActivity(new Intent(MainActivity.this, MainPageActivity.class));
                         } else {
@@ -148,4 +157,11 @@ public class MainActivity extends AppCompatActivity {
     }
     
     // --------------------------------------------------------------------
+    // ----- save the owner id that is logged in inside SharedPreference
+    private void saveOwnerId(int ownerId) {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("ownerId", ownerId);
+        editor.apply();
+    }
 }
