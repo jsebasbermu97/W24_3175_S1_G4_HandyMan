@@ -2,6 +2,7 @@ package com.example.handyman.worker;
 
 public class Worker {
     public int id;
+
     public String name;
     public String email;
     public String profession;
@@ -54,4 +55,5 @@ public class Worker {
     public void setAddress(String address) {
         this.address = address;
     }
+
 }

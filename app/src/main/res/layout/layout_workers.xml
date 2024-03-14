@@ -3,17 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imageViewProfession"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="0.3" />
+
     <TextView
         android:id="@+id/textViewWorker"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_weight="0.8"
+        android:layout_weight="0.4"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/textViewProfessions"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_weight="0.2"
+        android:layout_weight="0.3"
         android:text="TextView" />
 </LinearLayout>
