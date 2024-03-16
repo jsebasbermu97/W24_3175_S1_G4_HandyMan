@@ -50,15 +50,8 @@ public class OwnerCreateAccountActivity extends AppCompatActivity {
                     return;
                 }
 
-                // ------------------- TODO: add the details for the google map here ------------------
-
-
-                // ------------------------------------------------------------------------------------
-
                 Database database = new Database(OwnerCreateAccountActivity.this);
                 SQLiteDatabase db = database.getWritableDatabase();
-
-                // TODO: add google map to database
                 database.addOwner(db, txtNameString, txtEmailString, txtPasswordString);
 
                 Toast.makeText(OwnerCreateAccountActivity.this, "Account created successfully!", Toast.LENGTH_LONG).show();
