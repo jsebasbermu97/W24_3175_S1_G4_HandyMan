@@ -12,15 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.handyman.R;
-import com.example.handyman.adapters.ProfessionAdapter;
-import com.example.handyman.professions.CarpenterActivity;
-import com.example.handyman.professions.ElectricianActivity;
-import com.example.handyman.professions.PainterActivity;
-import com.example.handyman.professions.PlumberActivity;
-import com.example.handyman.professions.Professions;
+import com.example.handyman.adapters.CategoryAdapter;
 
 import java.util.List;
 
+// to show the fragment related to categories
 public class CategoriesFragment extends Fragment {
 
     public CategoriesFragment() {} // it must be an empty constructor
@@ -36,8 +32,8 @@ public class CategoriesFragment extends Fragment {
 
         List<String> professions = Professions.getProfessions();
         ListView listViewCategories = view.findViewById(R.id.listViewCategories);
-        ProfessionAdapter professionAdapter = new ProfessionAdapter(professions);
-        listViewCategories.setAdapter(professionAdapter);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(professions);
+        listViewCategories.setAdapter(categoryAdapter);
 
         listViewCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

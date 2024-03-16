@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
     }
     
     // --------------------------------------------------------------------
-    // ----- save the owner and worker id that is logged in inside SharedPreference
+    // ----- save the owner and worker id and name that is logged in inside SharedPreference
     private void saveOwnerId(int ownerId) {
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

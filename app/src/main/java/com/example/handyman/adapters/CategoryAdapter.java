@@ -11,10 +11,11 @@ import com.example.handyman.R;
 
 import java.util.List;
 
-public class ProfessionAdapter extends BaseAdapter {
+// to show the list of categories inside the user main page
+public class CategoryAdapter extends BaseAdapter {
     List<String> adapterProfessionList;
 
-    public ProfessionAdapter(List<String> adapterProfessionList) {
+    public CategoryAdapter(List<String> adapterProfessionList) {
         this.adapterProfessionList = adapterProfessionList;
     }
 

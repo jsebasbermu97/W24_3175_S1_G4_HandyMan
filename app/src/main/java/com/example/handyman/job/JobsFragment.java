@@ -19,6 +19,7 @@ import com.example.handyman.database.Database;
 import java.util.ArrayList;
 import java.util.List;
 
+// to show jobs in the fragment on user main page
 public class JobsFragment extends Fragment {
 
     private UserJobAdapter adapter;
@@ -37,6 +38,7 @@ public class JobsFragment extends Fragment {
         adapter = new UserJobAdapter(new ArrayList<>());
         listViewJobs.setAdapter(adapter);
 
+        // open the job information page in send data to it
         listViewJobs.setOnItemClickListener((parent, view1, position, id) -> {
             Job job = (Job) adapter.getItem(position);
 

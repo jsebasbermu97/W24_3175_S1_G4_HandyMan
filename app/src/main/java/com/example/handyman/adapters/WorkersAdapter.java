@@ -19,6 +19,7 @@ import com.example.handyman.worker.Worker;
 
 import java.util.List;
 
+// to show the list of workers in the user main page
 public class WorkersAdapter extends ArrayAdapter<Worker> {
     public WorkersAdapter(Context context, List<Worker> workers) {
         super(context, 0, workers);

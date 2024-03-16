@@ -12,6 +12,7 @@ import com.example.handyman.job.Job;
 
 import java.util.List;
 
+// to show the jobs that are related to the worker
 public class WorkerJobAdapter extends BaseAdapter {
 
     List<Job> adapterJobList;

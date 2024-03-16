@@ -19,6 +19,7 @@ import com.example.handyman.MainActivity;
 import com.example.handyman.R;
 import com.example.handyman.database.Database;
 
+// to show the job information, and end the job
 public class JobInformation extends AppCompatActivity {
 
     @Override
@@ -32,6 +33,7 @@ public class JobInformation extends AppCompatActivity {
             return insets;
         });
 
+        // get the information of the job from previous activity and list
         Intent intent = getIntent();
         int jobId = intent.getIntExtra("JobId", -1);
         String title = intent.getStringExtra("JobTitle");
@@ -47,6 +49,7 @@ public class JobInformation extends AppCompatActivity {
         ((TextView) findViewById(R.id.textViewJobEndDate)).setText(endDate);
 
 
+        // remove the job from table
         Button buttonJobEnd = findViewById(R.id.buttonJobEnd);
 
         buttonJobEnd.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +68,7 @@ public class JobInformation extends AppCompatActivity {
         });
     }
 
+    // ------------- for home button ----------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);

@@ -32,6 +32,7 @@ public class CreateJobActivity extends AppCompatActivity {
             return insets;
         });
 
+        // get worker and owner id from shared preferences
         int workerId = getIntent().getIntExtra("workerId", -1);
         int ownerId = getIntent().getIntExtra("ownerId", -1);
 
@@ -51,6 +52,7 @@ public class CreateJobActivity extends AppCompatActivity {
         });
     }
 
+    // ------------- for home button ----------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);

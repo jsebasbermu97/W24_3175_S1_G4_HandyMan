@@ -53,7 +53,7 @@ public class MainPageActivityWorker extends AppCompatActivity {
 
         loadJobs();
 
-
+        // show the list of jobs
         listViewJobs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -72,13 +72,12 @@ public class MainPageActivityWorker extends AppCompatActivity {
         });
     }
 
+    // load jobs again when back to the activity to bring the updated jobs
     @Override
     protected void onResume() {
         super.onResume();
         loadJobs();
     }
-
-
 
     private void loadJobs() {
         int workerId = getCurrentWorkerId();
@@ -97,6 +96,7 @@ public class MainPageActivityWorker extends AppCompatActivity {
         return sharedPreferences.getInt("workerId", -1);
     }
 
+    // ------------- for home button ----------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);

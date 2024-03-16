@@ -37,6 +37,8 @@ public class CreateAccountActivity extends AppCompatActivity {
             }
         });
     }
+
+    // ------------- for home button ----------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);

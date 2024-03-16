@@ -17,6 +17,7 @@ import com.example.handyman.R;
 import com.example.handyman.database.Database;
 import com.example.handyman.worker.WorkerCreateAccountActivity;
 
+// to create an owner account
 public class OwnerCreateAccountActivity extends AppCompatActivity {
 
     @Override
