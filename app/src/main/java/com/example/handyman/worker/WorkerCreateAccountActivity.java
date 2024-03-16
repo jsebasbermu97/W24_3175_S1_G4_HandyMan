@@ -61,8 +61,6 @@ public class WorkerCreateAccountActivity extends AppCompatActivity {
                     return;
                 }
 
-                // ------------------- TODO: add the details for the google map here ------------------
-
                 EditText txtAddress = findViewById(R.id.editTextAddress);
                 String txtAddressString = txtAddress.getText().toString();
                 if (txtAddressString.isEmpty()) {
@@ -70,12 +68,10 @@ public class WorkerCreateAccountActivity extends AppCompatActivity {
                     return;
                 }
 
-                // ------------------------------------------------------------------------------------
 
                 Database database = new Database(WorkerCreateAccountActivity.this);
                 SQLiteDatabase db = database.getWritableDatabase();
 
-                // TODO: add google map to database
                 database.addWorker(db, txtNameString, txtEmailString, txtProfessionString, txtPasswordString, txtAddressString);
 
                 Toast.makeText(WorkerCreateAccountActivity.this, "Account created successfully!", Toast.LENGTH_LONG).show();

@@ -30,7 +30,7 @@ public enum Professions {
 
     @Override
     public String toString(){
-        return "\n" + profession + "\n";
+        return profession;
     }
 
 
