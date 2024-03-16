@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- LinearLayout para la barra superior -->
+    <LinearLayout
+        android:id="@+id/layout_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <!-- ImageView para mostrar la imagen del usuario o trabajador -->
+        <ImageView
+            android:id="@+id/imageViewWorkerProfile"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="0.3" />
+
+        <!-- Sección para mostrar el nombre del usuario o trabajador -->
+        <TextView
+            android:id="@+id/txtViewWorkerNameChat"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="0.7"
+            android:text="TextView"
+            android:textSize="48sp" />
+    </LinearLayout>
+
+    <!-- RecyclerView para mostrar los mensajes -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerViewChat"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_below="@id/layout_topbar"
+        android:padding="8dp"
+        android:scrollbars="vertical" />
+
+    <!-- Barra de entrada de texto -->
+    <LinearLayout
+        android:id="@+id/layout_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <EditText
+            android:id="@+id/EditTextMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Escribir mensaje" />
+
+        <Button
+            android:id="@+id/BtnSendMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtBtnSendMessage" />
+    </LinearLayout>
+
+</RelativeLayout>
+

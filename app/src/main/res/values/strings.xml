@@ -71,6 +71,9 @@
     <string name="txtPainters" />
     <string name="textPainters">Painters List</string>
     <string name="txtCreateJob">Assign a Job</string>
+    <string name="txtBtnSendMessage">Send</string>
+    <string name="txtStartChat" />
+    <string name="txtOpenChat">Open Chat</string>
     <!--    <string-array name="txtProfession">-->
     <!--        <item>Carpenter</item>-->
     <!--        <item>Electrician</item>-->

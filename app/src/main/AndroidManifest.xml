@@ -13,6 +13,9 @@
         android:theme="@style/Theme.HandyMan"
         tools:targetApi="31">
         <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".job.CreateJobActivity"
             android:exported="false" />
         <activity

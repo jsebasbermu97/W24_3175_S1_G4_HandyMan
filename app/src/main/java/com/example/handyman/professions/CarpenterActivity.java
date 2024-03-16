@@ -12,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.handyman.MainActivity;
 import com.example.handyman.R;
 import com.example.handyman.adapters.WorkersAdapter;
 import com.example.handyman.database.Database;
