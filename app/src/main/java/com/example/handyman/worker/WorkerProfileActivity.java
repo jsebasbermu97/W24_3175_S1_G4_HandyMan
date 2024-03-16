@@ -83,7 +83,7 @@ public class WorkerProfileActivity extends AppCompatActivity implements OnMapRea
                 // get owner id from SharedPreference
                 SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
                 intent.putExtra("ownerId", sharedPreferences.getInt("ownerId", -1));
-                intent.putExtra("ownerName", sharedPreferences.getString("name",""));
+                intent.putExtra("ownerName", sharedPreferences.getString("ownerName",""));
 
                 startActivity(intent);
             }

@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                     // login successful
                     // save owner id in shared preferences
                     int ownerId = db.getOwnerIdByEmail(username);
+                    String ownerName = db.getOwnerNameByEmail(username);
+                    saveOwnerName(ownerName);
                     saveOwnerId(ownerId);
 
                     Intent intent = new Intent(MainActivity.this, MainPageActivity.class);
@@ -162,6 +164,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("ownerId", ownerId);
+        editor.apply();
+    }
+
+    private void saveOwnerName(String ownerName){
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ownerName", ownerName);
         editor.apply();
     }
 }

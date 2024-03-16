@@ -52,7 +52,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // Getting reference to the Firebase database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        chatRef = database.getReference("Messages/ " + "Owner " +  (String.valueOf(ownerId)) + "/" +workerName );
+        chatRef = database.getReference("Messages/ " + ownerName+ "/" +workerName );
 
         // Getting the views of this activity
         TextView textViewWorkerName = findViewById(R.id.txtViewWorkerNameChat);

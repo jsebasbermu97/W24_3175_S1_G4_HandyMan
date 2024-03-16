@@ -182,6 +182,32 @@ public class Database extends SQLiteOpenHelper {
         return ownerId;
     }
 
+    public String getOwnerNameByEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String ownerName = "";
+
+        String[] projection = {"name"};
+        String selection = "email = ?";
+        String[] selectionArgs = { email };
+
+        Cursor cursor = db.query(
+                "owner",
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            ownerName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+            cursor.close();
+        }
+        db.close();
+        return ownerName;
+    }
+
     public List<Job> getJobsForUser(int userId) {
         List<Job> jobs = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
