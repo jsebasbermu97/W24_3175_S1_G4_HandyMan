@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.handyman.owner.OwnerCreateAccountActivity;
 import com.example.handyman.worker.WorkerCreateAccountActivity;
 
+// to show the page that you can choose owner or worker type
 public class CreateAccountActivity extends AppCompatActivity {
 
     @Override

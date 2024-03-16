@@ -19,6 +19,7 @@ import com.example.handyman.R;
 import com.example.handyman.database.Database;
 import com.example.handyman.professions.Professions;
 
+// to create worker account
 public class WorkerCreateAccountActivity extends AppCompatActivity {
 
     @Override
@@ -94,6 +95,8 @@ public class WorkerCreateAccountActivity extends AppCompatActivity {
         });
 
     }
+
+    // ------------- for home button ----------------
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

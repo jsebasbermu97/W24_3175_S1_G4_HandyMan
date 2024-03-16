@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+// to show worker profile and information
 public class WorkerProfileActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
@@ -135,6 +136,9 @@ public class WorkerProfileActivity extends AppCompatActivity implements OnMapRea
         }
         return null;
     }
+
+
+    // ------------- for home button ----------------
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

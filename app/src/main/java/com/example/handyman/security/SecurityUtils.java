@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+// for password encryption
 public class SecurityUtils {
 
     private static final String PEPPER = "handyman"; //This should be kept secret and not exposed.
