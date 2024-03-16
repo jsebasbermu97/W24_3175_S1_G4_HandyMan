@@ -53,6 +53,7 @@ public class MainPageActivityWorker extends AppCompatActivity {
                 Job job = (Job) workerJobAdapter.getItem(position);
 
                 Intent intent = new Intent(MainPageActivityWorker.this, JobInformation.class);
+                intent.putExtra("JobId", job.getId());
                 intent.putExtra("JobTitle", job.getTitle());
                 intent.putExtra("JobDescription", job.getDescription());
                 intent.putExtra("JobBudget", job.getBudget());
@@ -62,6 +63,12 @@ public class MainPageActivityWorker extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadJobs();
     }
 
 

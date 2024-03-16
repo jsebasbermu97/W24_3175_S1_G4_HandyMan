@@ -344,6 +344,12 @@ public class Database extends SQLiteOpenHelper {
         return false;
     }
 
+    public void deleteJobById(int jobId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("job", "id = ?", new String[]{String.valueOf(jobId)});
+        db.close();
+    }
+
     public static void deleteDatabase(Context context) {
         context.deleteDatabase(DATABASE_NAME);
     }

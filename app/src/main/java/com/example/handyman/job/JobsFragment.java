@@ -41,6 +41,7 @@ public class JobsFragment extends Fragment {
             Job job = (Job) adapter.getItem(position);
 
             Intent intent = new Intent(getActivity(), JobInformation.class);
+            intent.putExtra("JobId", job.getId());
             intent.putExtra("JobTitle", job.getTitle());
             intent.putExtra("JobDescription", job.getDescription());
             intent.putExtra("JobBudget", job.getBudget());
