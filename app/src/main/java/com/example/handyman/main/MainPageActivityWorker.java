@@ -1,8 +1,11 @@
 package com.example.handyman.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,6 +19,7 @@ import com.example.handyman.R;
 import com.example.handyman.adapters.WorkerJobAdapter;
 import com.example.handyman.database.Database;
 import com.example.handyman.job.Job;
+import com.example.handyman.job.JobInformation;
 import com.example.handyman.worker.Worker;
 
 import java.util.ArrayList;
@@ -41,6 +45,23 @@ public class MainPageActivityWorker extends AppCompatActivity {
         listViewJobs.setAdapter(workerJobAdapter);
 
         loadJobs();
+
+
+        listViewJobs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Job job = (Job) workerJobAdapter.getItem(position);
+
+                Intent intent = new Intent(MainPageActivityWorker.this, JobInformation.class);
+                intent.putExtra("JobTitle", job.getTitle());
+                intent.putExtra("JobDescription", job.getDescription());
+                intent.putExtra("JobBudget", job.getBudget());
+                intent.putExtra("JobStartDate", job.getStartDate());
+                intent.putExtra("JobEndDate", job.getEndDate());
+
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -59,6 +80,6 @@ public class MainPageActivityWorker extends AppCompatActivity {
 
     private int getCurrentWorkerId() {
         SharedPreferences sharedPreferences = MainPageActivityWorker.this.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
-        return sharedPreferences.getInt("ownerId", -1);
+        return sharedPreferences.getInt("workerId", -1);
     }
 }

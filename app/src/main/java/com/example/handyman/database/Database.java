@@ -294,6 +294,10 @@ public class Database extends SQLiteOpenHelper {
                 Job job = new Job();
                 job.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
                 job.setTitle(cursor.getString(cursor.getColumnIndexOrThrow("title")));
+                job.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")));
+                job.setStartDate(cursor.getString(cursor.getColumnIndexOrThrow("start_date")));
+                job.setEndDate(cursor.getString(cursor.getColumnIndexOrThrow("end_date")));
+                job.setBudget(cursor.getInt(cursor.getColumnIndexOrThrow("budget")));
                 jobs.add(job);
             } while (cursor.moveToNext());
         }

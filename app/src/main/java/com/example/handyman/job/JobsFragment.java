@@ -1,6 +1,7 @@
 package com.example.handyman.job;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,8 +36,23 @@ public class JobsFragment extends Fragment {
         ListView listViewJobs = view.findViewById(R.id.listViewJobs);
         adapter = new UserJobAdapter(new ArrayList<>());
         listViewJobs.setAdapter(adapter);
+
+        listViewJobs.setOnItemClickListener((parent, view1, position, id) -> {
+            Job job = (Job) adapter.getItem(position);
+
+            Intent intent = new Intent(getActivity(), JobInformation.class);
+            intent.putExtra("JobTitle", job.getTitle());
+            intent.putExtra("JobDescription", job.getDescription());
+            intent.putExtra("JobBudget", job.getBudget());
+            intent.putExtra("JobStartDate", job.getStartDate());
+            intent.putExtra("JobEndDate", job.getEndDate());
+
+            startActivity(intent);
+        });
+
         loadJobs();
     }
+
 
     @Override
     public void onResume() {
@@ -48,7 +64,7 @@ public class JobsFragment extends Fragment {
         if (getActivity() == null) return;
         Database dbHelper = new Database(getActivity());
         List<Job> jobList = dbHelper.getJobsForUser(getCurrentUserId());
-        adapter.updateData(jobList); // Update adapter data
+        adapter.updateData(jobList);
     }
 
     private int getCurrentUserId() {
