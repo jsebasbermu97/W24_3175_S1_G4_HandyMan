@@ -74,6 +74,7 @@
     <string name="txtBtnSendMessage">Send</string>
     <string name="txtStartChat" />
     <string name="txtOpenChat">Open Chat</string>
+    <string name="txtJobs">Jobs</string>
     <!--    <string-array name="txtProfession">-->
     <!--        <item>Carpenter</item>-->
     <!--        <item>Electrician</item>-->

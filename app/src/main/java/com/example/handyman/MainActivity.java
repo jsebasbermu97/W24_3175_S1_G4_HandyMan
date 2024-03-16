@@ -15,7 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.handyman.database.Database;
-import com.example.handyman.main.MainPageActivity;
+import com.example.handyman.main.MainPageActivityOwner;
+import com.example.handyman.main.MainPageActivityWorker;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -57,18 +58,24 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 Database db = new Database(MainActivity.this);
+                String userType = db.checkUserCredentials(username, password);
 
-                if(db.checkUserCredentials(username, password)) {
-                    // login successful
-                    // save owner id in shared preferences
-                    int ownerId = db.getOwnerIdByEmail(username);
-                    String ownerName = db.getOwnerNameByEmail(username);
-                    saveOwnerName(ownerName);
-                    saveOwnerId(ownerId);
-
-                    Intent intent = new Intent(MainActivity.this, MainPageActivity.class);
-                    MainActivity.this.startActivity(intent);
-
+                if (userType != null) {
+                    Intent intent;
+                    if ("owner".equals(userType)) {
+                        int userId = db.getOwnerIdByEmail(username);
+                        String ownerName = db.getOwnerNameByEmail(username);
+                        saveOwnerId(userId);
+                        saveOwnerName(ownerName);
+                        intent = new Intent(MainActivity.this, MainPageActivityOwner.class);
+                    } else {
+                        int workerId = db.getWorkerIdByEmail(username);
+                        String workerName = db.getWorkerNameByEmail(username);
+                        saveWorkerId(workerId);
+                        saveWorkerName(workerName);
+                        intent = new Intent(MainActivity.this, MainPageActivityWorker.class);
+                    }
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Login failed. Invalid username or password", Toast.LENGTH_LONG).show();
                 }
@@ -150,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                                 int ownerId = database.getOwnerIdByEmail(email);
                                 saveOwnerId(ownerId);
                             }
-                            startActivity(new Intent(MainActivity.this, MainPageActivity.class));
+                            startActivity(new Intent(MainActivity.this, MainPageActivityOwner.class));
                         } else {
                             Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
@@ -159,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
     }
     
     // --------------------------------------------------------------------
-    // ----- save the owner id that is logged in inside SharedPreference
+    // ----- save the owner and worker id that is logged in inside SharedPreference
     private void saveOwnerId(int ownerId) {
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -171,6 +178,20 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("ownerName", ownerName);
+        editor.apply();
+    }
+
+    private void saveWorkerId(int workerId) {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("workerId", workerId);
+        editor.apply();
+    }
+
+    private void saveWorkerName(String workerName){
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("workerName", workerName);
         editor.apply();
     }
 }

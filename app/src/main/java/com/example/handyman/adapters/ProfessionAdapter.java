@@ -1,6 +1,5 @@
 package com.example.handyman.adapters;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +39,7 @@ public class ProfessionAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_categories, parent, false);
         }
 
-        TextView txtViewCategory = convertView.findViewById(R.id.textViewJob);
+        TextView txtViewCategory = convertView.findViewById(R.id.textViewWorkerJob);
         txtViewCategory.setText(adapterProfessionList.get(position));
         txtViewCategory.setGravity(Gravity.CENTER_VERTICAL);
         return convertView;

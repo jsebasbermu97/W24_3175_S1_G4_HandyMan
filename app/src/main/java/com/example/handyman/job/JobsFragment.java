@@ -7,22 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.handyman.R;
-import com.example.handyman.adapters.JobAdapter;
+import com.example.handyman.adapters.UserJobAdapter;
 import com.example.handyman.database.Database;
-import com.example.handyman.job.Job;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class JobsFragment extends Fragment {
 
-    private JobAdapter adapter;
+    private UserJobAdapter adapter;
 
     public JobsFragment(){}
 
@@ -35,7 +33,7 @@ public class JobsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ListView listViewJobs = view.findViewById(R.id.listViewJobs);
-        adapter = new JobAdapter(new ArrayList<>());
+        adapter = new UserJobAdapter(new ArrayList<>());
         listViewJobs.setAdapter(adapter);
         loadJobs();
     }

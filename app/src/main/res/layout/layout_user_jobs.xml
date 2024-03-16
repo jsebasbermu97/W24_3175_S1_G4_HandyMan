@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textViewJob"
+        android:id="@+id/textViewWorkerJob"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_weight="1"

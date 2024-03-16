@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.handyman.R;
 import com.example.handyman.database.Database;
-import com.example.handyman.main.MainPageActivity;
+import com.example.handyman.main.MainPageActivityOwner;
 
 public class CreateJobActivity extends AppCompatActivity {
 
@@ -44,7 +44,7 @@ public class CreateJobActivity extends AppCompatActivity {
             db.addJob(workerId, ownerId, title, description, startDate, endDate, budget);
 
             Toast.makeText(CreateJobActivity.this, "Job Created Successfully", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(CreateJobActivity.this, MainPageActivity.class));
+            startActivity(new Intent(CreateJobActivity.this, MainPageActivityOwner.class));
         });
     }
 }

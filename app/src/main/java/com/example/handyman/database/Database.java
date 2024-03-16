@@ -156,6 +156,58 @@ public class Database extends SQLiteOpenHelper {
         return workers;
     }
 
+    public int getWorkerIdByEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int workerId = -1;
+
+        String[] projection = {"id"};
+        String selection = "email = ?";
+        String[] selectionArgs = { email };
+
+        Cursor cursor = db.query(
+                "worker",
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            workerId = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+            cursor.close();
+        }
+        db.close();
+        return workerId;
+    }
+
+    public String getWorkerNameByEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String ownerName = "";
+
+        String[] projection = {"name"};
+        String selection = "email = ?";
+        String[] selectionArgs = { email };
+
+        Cursor cursor = db.query(
+                "worker",
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            ownerName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+            cursor.close();
+        }
+        db.close();
+        return ownerName;
+    }
+
     public int getOwnerIdByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         int ownerId = -1;
@@ -232,12 +284,35 @@ public class Database extends SQLiteOpenHelper {
         return jobs;
     }
 
+    public List<Job> getJobsForWorker(int workerId) {
+        List<Job> jobs = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM job WHERE worker_id = ?", new String[]{String.valueOf(workerId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                Job job = new Job();
+                job.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+                job.setTitle(cursor.getString(cursor.getColumnIndexOrThrow("title")));
+                jobs.add(job);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return jobs;
+    }
 
 
-    public boolean checkUserCredentials(String email, String password) {
+
+
+    public String checkUserCredentials(String email, String password) {
         if (checkUserCredentials("worker", email, password)) {
-            return true;
-        } else return checkUserCredentials("owner", email, password);
+            return "worker";
+        } else if (checkUserCredentials("owner", email, password)) {
+            return "owner";
+        } else {
+            return null;
+        }
     }
 
     private boolean checkUserCredentials(String tableName, String email, String password) {

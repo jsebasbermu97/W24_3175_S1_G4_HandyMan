@@ -13,7 +13,7 @@ import com.example.handyman.professions.CategoriesFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class MainPageActivity extends AppCompatActivity {
+public class MainPageActivityOwner extends AppCompatActivity {
 
     ViewPager2 viewPager;
     TabLayout tabLayout;
@@ -21,7 +21,7 @@ public class MainPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page);
+        setContentView(R.layout.activity_main_page_owner);
 
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tabs);

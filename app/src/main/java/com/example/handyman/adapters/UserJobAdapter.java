@@ -1,6 +1,5 @@
 package com.example.handyman.adapters;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +12,11 @@ import com.example.handyman.job.Job;
 
 import java.util.List;
 
-public class JobAdapter extends BaseAdapter {
+public class UserJobAdapter extends BaseAdapter {
 
     List<Job> adapterJobList;
 
-    public JobAdapter(List<Job> adapterJobList) {
+    public UserJobAdapter(List<Job> adapterJobList) {
         this.adapterJobList = adapterJobList;
     }
 
@@ -39,10 +38,10 @@ public class JobAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_jobs, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_user_jobs, parent, false);
         }
 
-        TextView txtViewCategory = convertView.findViewById(R.id.textViewJob);
+        TextView txtViewCategory = convertView.findViewById(R.id.textViewWorkerJob);
         Job job = adapterJobList.get(position);
         String title = job.getTitle();
         txtViewCategory.setText(title != null ? title : "No Title");
