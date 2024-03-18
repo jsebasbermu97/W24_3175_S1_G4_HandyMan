@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle("Fingerprint")
-                .setDescription("Use Fingerprint to Login").setDeviceCredentialAllowed(true).build();
+        promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle("Biometric Authentication")
+                .setDescription("Use Fingerprint/Face ID to Login").setDeviceCredentialAllowed(true).build();
 
         biometricPrompt.authenticate(promptInfo);
 
