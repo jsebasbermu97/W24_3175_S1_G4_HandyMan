@@ -51,56 +51,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // --------------- biometric login ----------------------------
+
         mMainLayout= findViewById(R.id.main_layout);
 
-        BiometricManager biometricManager = BiometricManager.from(this);
-        switch (biometricManager.canAuthenticate()){
-
-            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
-                Toast.makeText(getApplicationContext(),"Device has no fingerprint",Toast.LENGTH_SHORT).show();
-                break;
-
-            case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
-                Toast.makeText(getApplicationContext(),"Not working",Toast.LENGTH_SHORT).show();
-
-            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
-                Toast.makeText(getApplicationContext(),"No Fingerprint enrolled",Toast.LENGTH_SHORT).show();
+        if (mMainLayout.getVisibility() != View.VISIBLE && isBiometricPromptEnabled()) {
+            showBiometricPrompt();
+        } else {
+            mMainLayout.setVisibility(View.VISIBLE);
         }
 
-        Executor executor = ContextCompat.getMainExecutor(this);
+        // ----- if you want to clear database and fill it with basic data, un-comment this line and run the program once ------
+        // remember to comment it out again
 
-        biometricPrompt =new BiometricPrompt(MainActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
-            @Override
-            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-                super.onAuthenticationError(errorCode, errString);
-            }
+        // Database.deleteDatabase(this);
 
-            @Override
-            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                mMainLayout.setVisibility(View.VISIBLE);
-
-            }
-
-
-            @Override
-            public void onAuthenticationFailed() {
-                super.onAuthenticationFailed();
-            }
-        });
-
-        promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle("Biometric Authentication")
-                .setDescription("Use Fingerprint/Face ID to Login").setDeviceCredentialAllowed(true).build();
-
-        biometricPrompt.authenticate(promptInfo);
-
-
-//        Database.deleteDatabase(this); // TODO: delete this line later
-
-        mAuth = FirebaseAuth.getInstance();
 
         // ------------------ Login ------------------
+
+        mAuth = FirebaseAuth.getInstance();
         Button buttonLogin = findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,6 +190,69 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    // --------------- for biometric login ------------------
+    // if you are using the virtual device you cannot see the biometric login, since it doesn't support it
+    // if you are using the physical device you can see the biometric login
+
+    private void showBiometricPrompt() {
+        BiometricManager biometricManager = BiometricManager.from(this);
+        int canAuthenticate = biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK | BiometricManager.Authenticators.DEVICE_CREDENTIAL);
+
+        if (canAuthenticate == BiometricManager.BIOMETRIC_SUCCESS) {
+            Executor executor = ContextCompat.getMainExecutor(this);
+            biometricPrompt = new BiometricPrompt(MainActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                    super.onAuthenticationError(errorCode, errString);
+                    if (errorCode == BiometricPrompt.ERROR_USER_CANCELED || errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON || errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
+                        navigateToMainAppFunctionality();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Authentication error: " + errString, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                    super.onAuthenticationSucceeded(result);
+                    Toast.makeText(MainActivity.this, "Authentication succeeded.", Toast.LENGTH_SHORT).show();
+                    navigateToMainAppFunctionality();
+                }
+
+                @Override
+                public void onAuthenticationFailed() {
+                    super.onAuthenticationFailed();
+                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                    .setTitle("Biometric Login")
+                    .setSubtitle("Log in using your biometric credential")
+                    .setNegativeButtonText("Use account password")
+                    .build();
+
+            biometricPrompt.authenticate(promptInfo);
+        } else {
+            navigateToMainAppFunctionality();
+        }
+    }
+
+    private void navigateToMainAppFunctionality() {
+        mMainLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void setBiometricPromptEnabled(boolean isEnabled) {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("BiometricPromptEnabled", isEnabled);
+        editor.apply();
+    }
+
+    private boolean isBiometricPromptEnabled() {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        return sharedPreferences.getBoolean("BiometricPromptEnabled", true);
     }
     
     // --------------------------------------------------------------------
