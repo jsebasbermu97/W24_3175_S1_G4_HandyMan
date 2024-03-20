@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         // ----- if you want to clear database and fill it with basic data, un-comment this line and run the program once ------
         // remember to comment it out again
 
-        // Database.deleteDatabase(this);
+//         Database.deleteDatabase(this);
 
 
         // ------------------ Login ------------------
@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient.revokeAccess();
 
         SignInButton btnGoogle = findViewById(R.id.buttonGoogle);
 
