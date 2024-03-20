@@ -1,26 +1,38 @@
+
 package com.example.handyman.job;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+        import android.Manifest;
+        import android.app.NotificationChannel;
+        import android.app.NotificationManager;
+        import android.app.PendingIntent;
+        import android.content.Intent;
+        import android.content.pm.PackageManager;
+        import android.os.Build;
+        import android.os.Bundle;
+        import android.view.Menu;
+        import android.view.MenuItem;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+        import androidx.activity.EdgeToEdge;
+        import androidx.annotation.RequiresApi;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.core.app.ActivityCompat;
+        import androidx.core.app.NotificationCompat;
+        import androidx.core.app.NotificationManagerCompat;
+        import androidx.core.graphics.Insets;
+        import androidx.core.view.ViewCompat;
+        import androidx.core.view.WindowInsetsCompat;
 
-import com.example.handyman.MainActivity;
-import com.example.handyman.R;
-import com.example.handyman.database.Database;
-import com.example.handyman.main.MainPageActivityOwner;
+        import com.example.handyman.MainActivity;
+        import com.example.handyman.R;
+        import com.example.handyman.database.Database;
+        import com.example.handyman.main.MainPageActivityOwner;
 
 public class CreateJobActivity extends AppCompatActivity {
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +58,33 @@ public class CreateJobActivity extends AppCompatActivity {
 
             Database db = new Database(CreateJobActivity.this);
             db.addJob(workerId, ownerId, title, description, startDate, endDate, budget);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                CharSequence name = "My Channel Name";
+                String description2 = "My Channel Description";
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                NotificationChannel channel = new NotificationChannel("CHANNEL_ID", name, importance);
+                channel.setDescription(description2);
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                notificationManager.createNotificationChannel(channel);
+            }
+
+            Intent intent = new Intent(this, MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setContentTitle("New Job Available! - "+title)
+                    .setContentText(description)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 100);
+            }
+            notificationManager.notify(99, builder.build());
 
             Toast.makeText(CreateJobActivity.this, "Job Created Successfully", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(CreateJobActivity.this, MainPageActivityOwner.class));
