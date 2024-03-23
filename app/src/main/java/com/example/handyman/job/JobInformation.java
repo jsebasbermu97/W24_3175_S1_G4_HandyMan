@@ -2,6 +2,7 @@ package com.example.handyman.job;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +37,10 @@ public class JobInformation extends AppCompatActivity {
         // get the information of the job from previous activity and list
         Intent intent = getIntent();
         int jobId = intent.getIntExtra("JobId", -1);
+        int owner_id = intent.getIntExtra("JobOwnerId",-1);
+        int worker_id = intent.getIntExtra("JobWorkerId", -1);
+        Log.d("OWNER ID", owner_id + "");
+        Log.d("WORKER ID", worker_id + "");
         String title = intent.getStringExtra("JobTitle");
         String description = intent.getStringExtra("JobDescription");
         double budget = intent.getDoubleExtra("JobBudget", 0);

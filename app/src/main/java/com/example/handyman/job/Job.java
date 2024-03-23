@@ -2,6 +2,8 @@ package com.example.handyman.job;
 
 public class Job {
     private int id;
+    private int worker_id;
+    private int owner_id;
     private String title;
     private String description;
     private String startDate;
@@ -25,6 +27,22 @@ public class Job {
 
     public String getTitle() {
         return title;
+    }
+
+    public int getWorker_id() {
+        return worker_id;
+    }
+
+    public void setWorker_id(int worker_id) {
+        this.worker_id = worker_id;
+    }
+
+    public int getOwner_id() {
+        return owner_id;
+    }
+
+    public void setOwner_id(int owner_id) {
+        this.owner_id = owner_id;
     }
 
     public void setTitle(String title) {

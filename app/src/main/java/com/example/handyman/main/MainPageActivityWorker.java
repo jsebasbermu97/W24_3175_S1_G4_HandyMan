@@ -61,6 +61,8 @@ public class MainPageActivityWorker extends AppCompatActivity {
 
                 Intent intent = new Intent(MainPageActivityWorker.this, JobInformation.class);
                 intent.putExtra("JobId", job.getId());
+                intent.putExtra("JobOwnerId", job.getOwner_id());
+                intent.putExtra("JobWorkerId", job.getWorker_id());
                 intent.putExtra("JobTitle", job.getTitle());
                 intent.putExtra("JobDescription", job.getDescription());
                 intent.putExtra("JobBudget", job.getBudget());
