@@ -62,7 +62,6 @@ public class WorkerProfileActivity extends AppCompatActivity implements OnMapRea
         mapFragment.getMapAsync(this);
 
         Button buttonCreateJob = findViewById(R.id.buttonCreateJob);
-        Button buttonOpenChat = findViewById(R.id.ButtonOpenChat);
         buttonCreateJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,22 +71,6 @@ public class WorkerProfileActivity extends AppCompatActivity implements OnMapRea
                 // get owner id from SharedPreference
                 SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
                 intent.putExtra("ownerId", sharedPreferences.getInt("ownerId", -1));
-
-                startActivity(intent);
-            }
-        });
-
-        buttonOpenChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WorkerProfileActivity.this, ChatActivity.class);
-                intent.putExtra("workerId", workerId);
-                intent.putExtra("workerName", workerName);
-                intent.putExtra("workerProfession", workerProfession);
-                // get owner id from SharedPreference
-                SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
-                intent.putExtra("ownerId", sharedPreferences.getInt("ownerId", -1));
-                intent.putExtra("ownerName", sharedPreferences.getString("ownerName",""));
 
                 startActivity(intent);
             }

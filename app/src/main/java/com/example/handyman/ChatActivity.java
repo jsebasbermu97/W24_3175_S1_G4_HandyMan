@@ -63,11 +63,11 @@ public class ChatActivity extends AppCompatActivity {
 
         switch (userType) {
             case "worker":
-                textViewPersonName.setText(workerName);
+                textViewPersonName.setText(ownerName);
                 textViewPersonName.setGravity(Gravity.CENTER);
                 break;
             case "owner":
-                textViewPersonName.setText(ownerName);
+                textViewPersonName.setText(workerName);
                 textViewPersonName.setGravity(Gravity.CENTER);
                 break;
             default:
@@ -95,7 +95,18 @@ public class ChatActivity extends AppCompatActivity {
         // Configuring the recycler view
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewChat.setLayoutManager(layoutManager);
-        messageAdapter = new MsgAdapter(messages, ownerName);
+
+        switch (userType) {
+            case "worker":
+                messageAdapter = new MsgAdapter(messages, workerName);
+                break;
+            case "owner":
+                messageAdapter = new MsgAdapter(messages, ownerName);
+                break;
+            default:
+                return;
+        }
+        // messageAdapter = new MsgAdapter(messages, ownerName);
         recyclerViewChat.setAdapter(messageAdapter);
 
         // Send Message Button

@@ -1,6 +1,7 @@
 package com.example.handyman.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.MsgViewHolder>{
     private List<String> messages;
     private String ownerName;
 
+
     public MsgAdapter(List<String> messages, String ownerName) {
         this.messages = messages;
         this.ownerName = ownerName;
@@ -30,6 +32,7 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.MsgViewHolder>{
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_message, parent, false);
         return new MsgViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull MsgViewHolder holder, int position) {
