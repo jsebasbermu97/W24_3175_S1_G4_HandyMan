@@ -39,6 +39,8 @@ public class JobInformation extends AppCompatActivity {
         int jobId = intent.getIntExtra("JobId", -1);
         int owner_id = intent.getIntExtra("JobOwnerId",-1);
         int worker_id = intent.getIntExtra("JobWorkerId", -1);
+        Log.d("OWNER_ID", owner_id + "");
+        Log.d("WORKER_ID", worker_id + "");
         String title = intent.getStringExtra("JobTitle");
         String description = intent.getStringExtra("JobDescription");
         double budget = intent.getDoubleExtra("JobBudget", 0);
