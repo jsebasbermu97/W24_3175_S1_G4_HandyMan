@@ -208,6 +208,58 @@ public class Database extends SQLiteOpenHelper {
         return ownerName;
     }
 
+    public String getWorkerNameById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String workerName = "";
+
+        String[] projection = {"name"};
+        String selection = "id = ?";
+        String[] selectionArgs = { String.valueOf(id) };
+
+        Cursor cursor = db.query(
+                "worker",
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            workerName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+            cursor.close();
+        }
+        db.close();
+        return workerName;
+    }
+    public String getWorkerProfessionById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String workerProfession = "";
+
+        String[] projection = {"profession"};
+        String selection = "id = ?";
+        String[] selectionArgs = { String.valueOf(id) };
+
+        Cursor cursor = db.query(
+                "worker",
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            workerProfession = cursor.getString(cursor.getColumnIndexOrThrow("profession"));
+            cursor.close();
+        }
+        db.close();
+        return workerProfession;
+    }
+
+
     public int getOwnerIdByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         int ownerId = -1;
@@ -241,6 +293,32 @@ public class Database extends SQLiteOpenHelper {
         String[] projection = {"name"};
         String selection = "email = ?";
         String[] selectionArgs = { email };
+
+        Cursor cursor = db.query(
+                "owner",
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            ownerName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+            cursor.close();
+        }
+        db.close();
+        return ownerName;
+    }
+
+    public String getOwnerNameById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String ownerName = "";
+
+        String[] projection = {"name"};
+        String selection = "id = ?";
+        String[] selectionArgs = { String.valueOf(id) };
 
         Cursor cursor = db.query(
                 "owner",
@@ -307,8 +385,6 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return jobs;
     }
-
-
 
 
     public String checkUserCredentials(String email, String password) {

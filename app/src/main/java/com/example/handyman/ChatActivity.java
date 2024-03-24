@@ -1,13 +1,14 @@
 package com.example.handyman;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -17,9 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.handyman.adapters.MsgAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.util.Log;
 
 
 public class ChatActivity extends AppCompatActivity {
@@ -44,8 +41,8 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         // Getting the data from the workerProfileActivity
-        int workerId = getIntent().getIntExtra("workerId", -1);
-        int ownerId = getIntent().getIntExtra("ownerId", -1);
+        //int workerId = getIntent().getIntExtra("workerId", -1);
+        //int ownerId = getIntent().getIntExtra("ownerId", -1);
         String workerName = getIntent().getStringExtra("workerName");
         String workerProfession = getIntent().getStringExtra("workerProfession");
         String ownerName = getIntent().getStringExtra("ownerName");
@@ -55,14 +52,27 @@ public class ChatActivity extends AppCompatActivity {
         chatRef = database.getReference("Messages/ " + ownerName+ "/" +workerName );
 
         // Getting the views of this activity
-        TextView textViewWorkerName = findViewById(R.id.txtViewWorkerNameChat);
+        TextView textViewPersonName = findViewById(R.id.txtViewPersonNameChat);
         recyclerViewChat = findViewById(R.id.RecyclerViewChat);
         editTextMessage = findViewById(R.id.EditTextMessage);
         Button btnSendMessage = findViewById(R.id.BtnSendMessage);
         ImageView imgViewProfession = findViewById(R.id.imageViewWorkerProfile);
 
-        textViewWorkerName.setText(workerName);
-        textViewWorkerName.setGravity(Gravity.CENTER);
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        String userType = sharedPreferences.getString("userType","");
+
+        switch (userType) {
+            case "worker":
+                textViewPersonName.setText(workerName);
+                textViewPersonName.setGravity(Gravity.CENTER);
+                break;
+            case "owner":
+                textViewPersonName.setText(ownerName);
+                textViewPersonName.setGravity(Gravity.CENTER);
+                break;
+            default:
+                return;
+        }
 
         // Displaying the image based on the profession
         switch (workerProfession) {

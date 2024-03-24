@@ -16,9 +16,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.handyman.ChatActivity;
 import com.example.handyman.MainActivity;
 import com.example.handyman.R;
 import com.example.handyman.database.Database;
+import com.example.handyman.worker.WorkerProfileActivity;
 
 // to show the job information, and end the job
 public class JobInformation extends AppCompatActivity {
@@ -39,6 +41,10 @@ public class JobInformation extends AppCompatActivity {
         int jobId = intent.getIntExtra("JobId", -1);
         int owner_id = intent.getIntExtra("JobOwnerId",-1);
         int worker_id = intent.getIntExtra("JobWorkerId", -1);
+
+        Log.d("worker id", String.valueOf(worker_id));
+        Log.d("owner id", String.valueOf(owner_id));
+
         String title = intent.getStringExtra("JobTitle");
         String description = intent.getStringExtra("JobDescription");
         double budget = intent.getDoubleExtra("JobBudget", 0);
@@ -51,6 +57,38 @@ public class JobInformation extends AppCompatActivity {
         ((TextView) findViewById(R.id.textViewJobStartDate)).setText(startDate);
         ((TextView) findViewById(R.id.textViewJobEndDate)).setText(endDate);
 
+
+        Database db = new Database(JobInformation.this);
+        String workerName = db.getWorkerNameById(worker_id);
+        String workerProfession = db.getWorkerProfessionById(worker_id);
+        String ownerName = db.getOwnerNameById(owner_id);
+
+        Log.d("worker name", workerName);
+        Log.d("worker profession", workerProfession);
+        Log.d("owner name", ownerName);
+
+
+        // Open chat button logic
+
+        Button buttonOpenChat = findViewById(R.id.btnOpenChat);
+
+        buttonOpenChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Database db = new Database(JobInformation.this);
+                String workerName = db.getWorkerNameById(worker_id);
+                String workerProfession = db.getWorkerProfessionById(worker_id);
+                String ownerName = db.getOwnerNameById(owner_id);
+
+                Intent intent = new Intent(JobInformation.this, ChatActivity.class);
+                intent.putExtra("workerName", workerName);
+                intent.putExtra("workerProfession", workerProfession);
+                intent.putExtra("ownerName", ownerName);
+
+                startActivity(intent);
+
+            }
+        });
 
         // remove the job from table
         Button buttonJobEnd = findViewById(R.id.buttonJobEnd);

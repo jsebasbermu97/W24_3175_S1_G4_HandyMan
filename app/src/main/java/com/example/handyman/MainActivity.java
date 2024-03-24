@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Database db = new Database(MainActivity.this);
                 String userType = db.checkUserCredentials(username, password);
-
+                saveTypeOfUser(userType);
                 if (userType != null) {
                     Intent intent;
                     if ("owner".equals(userType)) {
@@ -283,6 +283,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("workerName", workerName);
+        editor.apply();
+    }
+
+    private void saveTypeOfUser(String userType){
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userType", userType);
         editor.apply();
     }
 }

@@ -21,7 +21,7 @@
 
         <!-- Sección para mostrar el nombre del usuario o trabajador -->
         <TextView
-            android:id="@+id/txtViewWorkerNameChat"
+            android:id="@+id/txtViewPersonNameChat"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="0.7"

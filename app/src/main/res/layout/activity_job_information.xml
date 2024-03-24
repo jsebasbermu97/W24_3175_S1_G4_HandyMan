@@ -58,6 +58,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewJobStartDate" />
 
     <Button
+        android:id="@+id/btnOpenChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Chat"
+        app:layout_constraintBottom_toTopOf="@+id/buttonJobEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewJobEndDate" />
+
+    <Button
         android:id="@+id/buttonJobEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
