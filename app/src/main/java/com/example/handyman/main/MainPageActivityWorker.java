@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.handyman.MainActivity;
 import com.example.handyman.R;
 import com.example.handyman.adapters.WorkerJobAdapter;
+import com.example.handyman.bottomsheet.RatingBottomSheet;
 import com.example.handyman.database.Database;
 import com.example.handyman.job.Job;
 import com.example.handyman.job.JobInformation;
@@ -44,6 +45,18 @@ public class MainPageActivityWorker extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ratings", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        if (sharedPreferences.getBoolean("appOpenFirstTimeWorker"+getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).getString("workerEmail",""), true)){
+            editor.putBoolean("appOpenFirstTimeWorker"+getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).getString("workerEmail",""),false);
+            editor.apply();
+        }else if (!sharedPreferences.getBoolean("appOpenFirstTimeWorker"+getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).getString("workerEmail",""), true) && !sharedPreferences.getBoolean("ratedWorker"+getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).getString("workerEmail",""), false)){
+            //Toast.makeText(this, "Not Rated!", Toast.LENGTH_SHORT).show();
+            RatingBottomSheet ratingBottomSheet = new RatingBottomSheet(this, "Worker");
+            ratingBottomSheet.show();
         }
 
 
