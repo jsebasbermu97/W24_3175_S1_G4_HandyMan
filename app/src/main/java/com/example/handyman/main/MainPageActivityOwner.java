@@ -50,7 +50,6 @@ public class MainPageActivityOwner extends AppCompatActivity {
             ratingBottomSheet.show();
 
         }
-
         // Link the TabLayout with the ViewPager2
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(position == 0 ? "Categories" : "Jobs")).attach();
     }

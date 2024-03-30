@@ -24,7 +24,6 @@ public class RatingBottomSheet extends BottomSheetDialog {
 
     private String type = "";
 
-
     public RatingBottomSheet(@NonNull Context context, String type) {
         super(context);
         this.type = type;
