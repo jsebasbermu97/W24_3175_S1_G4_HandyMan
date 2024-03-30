@@ -25,7 +25,8 @@ public class SplashActivity extends AppCompatActivity {
 
         TimerTask timerTask2 = new TimerTask() {
             @Override
-            public void run() {
+            public void run()
+            {
                 ((TextView) findViewById(R.id.textView)).animate().translationX(2000).setDuration(2000).setStartDelay(0);
             }
         };
