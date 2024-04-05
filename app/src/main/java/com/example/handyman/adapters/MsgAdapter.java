@@ -37,7 +37,6 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.MsgViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull MsgViewHolder holder, int position) {
         String message = messages.get(position);
-        holder.textUserName.setText(ownerName);
         holder.textMessage.setText(message);
     }
 
@@ -48,24 +47,15 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.MsgViewHolder>{
 
     public class MsgViewHolder extends RecyclerView.ViewHolder{
         TextView textMessage;
-        TextView textUserName;
 
         public MsgViewHolder(@NonNull View itemView) {
             super(itemView);
             textMessage = itemView.findViewById(R.id.txtMessageContent);
-            textUserName = itemView.findViewById(R.id.textViewUserName);
         }
 
         public TextView getTextMessage() {return textMessage;}
         public void setTextMessage(TextView textMessage) {this.textMessage = textMessage;}
 
-        public TextView getTextUserName() {
-            return textUserName;
-        }
-
-        public void setTextUserName(TextView textUserName) {
-            this.textUserName = textUserName;
-        }
     }
 }
 
