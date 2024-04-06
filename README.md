@@ -1,8 +1,7 @@
 # Prerequisite
 
-just copy and pase these dependencies into the build.gradle(:app) file
-
-```
+just copy and paste these dependencies into your `build.gradle(:app)`
+```agsl
 dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
     implementation("com.google.firebase:firebase-auth")
