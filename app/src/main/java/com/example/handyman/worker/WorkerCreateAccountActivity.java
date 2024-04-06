@@ -19,7 +19,7 @@ import com.example.handyman.R;
 import com.example.handyman.database.Database;
 import com.example.handyman.professions.Professions;
 
-// to create worker account
+// -------------- to create worker account --------------
 public class WorkerCreateAccountActivity extends AppCompatActivity {
 
     @Override
@@ -80,13 +80,11 @@ public class WorkerCreateAccountActivity extends AppCompatActivity {
                 txtEmail.setText("");
                 txtPassword.setText("");
 
-                // Creating a bundle to pass information to next activity
+                // creating a bundle to pass information to next activity
                 Bundle bundle = new Bundle();
-                // Putting data in the bundle
                 bundle.putString("Name", txtNameString);
                 bundle.putString("Profession", txtProfessionString);
                 bundle.putString("Address", txtAddressString);
-                // Creating the intent
                 Intent intent = new Intent(WorkerCreateAccountActivity.this, WorkerProfileActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);

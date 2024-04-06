@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     BiometricPrompt.PromptInfo promptInfo;
     ConstraintLayout mMainLayout;
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth; // firebase authorization
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         // ----- if you want to clear database and fill it with basic data, un-comment this line and run the program once ------
         // remember to comment it out again
 
-//         Database.deleteDatabase(this);
+        // Database.deleteDatabase(this);
 
 
         // ------------------ Login ------------------
@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        // -----------------------------------------------
 
         // ----------------- Google sign in --------------
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -129,13 +128,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // -----------------------------------------------
-
 
         // ---------- Create and Populate the database ------------
         Database database = new Database(this);
         SQLiteDatabase db = database.getWritableDatabase();
-        // ---------------------------------------------------
+
 
         // ---------- for Creating account ------------
         TextView txtViewCreateAccount = findViewById(R.id.textViewCreateAccountLink);
@@ -145,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, CreateAccountActivity.class));
             }
         });
-        // --------------------------------------------
+
     }
 
     // ------------------ Checking the Sign in with Firebase ------------
@@ -255,9 +252,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         return sharedPreferences.getBoolean("BiometricPromptEnabled", true);
     }
-    
-    // --------------------------------------------------------------------
-    // ----- save the owner and worker id and name that is logged in inside SharedPreference
+
+
+    // ------- save the owner/worker id, name, type that is logged in inside SharedPreference ---------
     private void saveOwnerId(int ownerId) {
         SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

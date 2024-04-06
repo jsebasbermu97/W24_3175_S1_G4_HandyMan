@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
+// for rating pop-up windows
 public class RatingBottomSheet extends BottomSheetDialog {
 
     private String type = "";
@@ -89,7 +90,7 @@ public class RatingBottomSheet extends BottomSheetDialog {
                         hashmap.put("email", getContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).getString("workerEmail",""));
 
                         String push = FirebaseDatabase.getInstance().getReference().child("Ratings").push().getKey();
-                        FirebaseDatabase.getInstance().getReference().child("Ratings").child(push).setValue(hashmap);
+                        FirebaseDatabase.getInstance().getReference().child("Ratings").child(push).setValue(hashmap); // save the rating inside the firebase
 
                     }
 

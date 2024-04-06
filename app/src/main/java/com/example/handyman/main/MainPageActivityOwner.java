@@ -37,20 +37,20 @@ public class MainPageActivityOwner extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         viewPager.setAdapter(new SectionsPagerAdapter(this));
 
+        // -------------- for rating system pop-up ----------------------
         SharedPreferences sharedPreferences = getSharedPreferences("ratings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        // it checks if it is the first time the app is open or not, then show the pop-up windows
         if (sharedPreferences.getBoolean("appOpenFirstTimeOwner"+getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).getString("ownerEmail",""), true)){
             editor.putBoolean("appOpenFirstTimeOwner"+getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).getString("ownerEmail",""),false);
             editor.apply();
         }else if (!sharedPreferences.getBoolean("appOpenFirstTimeOwner"+getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).getString("ownerEmail",""), true) && !sharedPreferences.getBoolean("ratedOwner"+getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).getString("ownerEmail",""), false)){
-            //Toast.makeText(this, "Not Rated!", Toast.LENGTH_SHORT).show();
-
             RatingBottomSheet ratingBottomSheet = new RatingBottomSheet(this, "Owner");
             ratingBottomSheet.show();
 
         }
-        // Link the TabLayout with the ViewPager2
+        // ----------------- link the TabLayout with the ViewPager2 ------------------
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(position == 0 ? "Categories" : "Jobs")).attach();
     }
 

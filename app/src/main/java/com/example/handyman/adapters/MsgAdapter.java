@@ -16,6 +16,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+// to show messages
 public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.MsgViewHolder>{
 
     private List<String> messages;

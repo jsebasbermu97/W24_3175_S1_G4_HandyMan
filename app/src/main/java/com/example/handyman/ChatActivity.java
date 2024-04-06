@@ -40,18 +40,16 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        // Getting the data from the workerProfileActivity
-        //int workerId = getIntent().getIntExtra("workerId", -1);
-        //int ownerId = getIntent().getIntExtra("ownerId", -1);
+        // -------------- getting the data from the workerProfileActivity --------------
         String workerName = getIntent().getStringExtra("workerName");
         String workerProfession = getIntent().getStringExtra("workerProfession");
         String ownerName = getIntent().getStringExtra("ownerName");
 
-        // Getting reference to the Firebase database
+        // -------------- getting reference to the Firebase database --------------
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         chatRef = database.getReference("Messages/ " + ownerName+ "/" +workerName );
 
-        // Getting the views of this activity
+        // -------------- getting the views of this activity --------------
         TextView textViewPersonName = findViewById(R.id.txtViewPersonNameChat);
         recyclerViewChat = findViewById(R.id.RecyclerViewChat);
         editTextMessage = findViewById(R.id.EditTextMessage);
@@ -74,7 +72,7 @@ public class ChatActivity extends AppCompatActivity {
                 return;
         }
 
-        // Displaying the image based on the profession
+        // -------------- displaying the image based on the profession --------------
         switch (workerProfession) {
             case "Carpenter":
                 imgViewProfession.setImageResource(R.drawable.carpenter);
@@ -92,7 +90,7 @@ public class ChatActivity extends AppCompatActivity {
                 return;
         }
 
-        // Configuring the recycler view
+        // -------------- configuring the recycler view --------------
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewChat.setLayoutManager(layoutManager);
 
@@ -106,10 +104,9 @@ public class ChatActivity extends AppCompatActivity {
             default:
                 return;
         }
-        // messageAdapter = new MsgAdapter(messages, ownerName);
         recyclerViewChat.setAdapter(messageAdapter);
 
-        // Send Message Button
+        // -------------- send Message Button --------------
         btnSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +114,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        // Listen to the initial set of messages
+        // -------------- listen to the initial set of messages --------------
         chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -126,27 +123,24 @@ public class ChatActivity extends AppCompatActivity {
                     messages.add(message);
                 }
                 messageAdapter.notifyDataSetChanged();
-                // Scroll RecyclerView to the bottom
                 recyclerViewChat.scrollToPosition(messages.size() - 1);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle error
+
             }
         });
 
     }
 
-    // Defining the send message function
+    // -------------- defining the send message function --------------
     private void sendMessage() {
         String message = editTextMessage.getText().toString().trim();
         if (!message.isEmpty()) {
-            // Generating a unique key for the message
-            String messageKey = chatRef.push().getKey();
-            // Storing the message in the db under the key generated
-            chatRef.child(messageKey).setValue(message);
-            // Clearing the text field after sending the message
-            editTextMessage.setText("");
+
+            String messageKey = chatRef.push().getKey(); // generating a unique key for the message
+            chatRef.child(messageKey).setValue(message); // storing the message in the db under the key generated
+            editTextMessage.setText(""); // clearing the text field after sending the message
             messages.add(message);
             messageAdapter.notifyItemInserted(messages.size()-1);
             recyclerViewChat.scrollToPosition(messages.size() - 1);

@@ -30,6 +30,7 @@ public class CategoriesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // pass the worker information to the next activity
         List<String> professions = Professions.getProfessions();
         ListView listViewCategories = view.findViewById(R.id.listViewCategories);
         CategoryAdapter categoryAdapter = new CategoryAdapter(professions);

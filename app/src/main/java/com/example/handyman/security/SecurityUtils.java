@@ -4,15 +4,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-// for password encryption
+// -------------- for password encryption --------------
 public class SecurityUtils {
 
-    private static final String PEPPER = "handyman"; //This should be kept secret and not exposed.
+    private static final String PEPPER = "handyman"; //secret key - This should be kept secret and not exposed.
 
     public static String hashPassword(String password) {
         String generatedPassword = null;
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            MessageDigest md = MessageDigest.getInstance("SHA-256"); // encryption algorithm
             md.update(PEPPER.getBytes());
             byte[] bytes = md.digest(password.getBytes());
             StringBuilder sb = new StringBuilder();

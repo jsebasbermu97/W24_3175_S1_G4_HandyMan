@@ -59,6 +59,7 @@ public class CreateJobActivity extends AppCompatActivity {
             Database db = new Database(CreateJobActivity.this);
             db.addJob(workerId, ownerId, title, description, startDate, endDate, budget);
 
+            // ---------------- create the notification ------------------
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 CharSequence name = "My Channel Name";
                 String description2 = "My Channel Description";

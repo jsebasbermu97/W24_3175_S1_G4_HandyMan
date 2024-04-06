@@ -46,6 +46,7 @@ public class ElectricianActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Worker selectedWorker = electricians.get(position);
 
+                // pass the worker information to the next activity
                 Intent intent = new Intent(ElectricianActivity.this, WorkerProfileActivity.class);
                 intent.putExtra("id", selectedWorker.id);
                 intent.putExtra("Name", selectedWorker.name);

@@ -29,6 +29,7 @@ import com.example.handyman.worker.Worker;
 import java.util.ArrayList;
 import java.util.List;
 
+// the main page for workers that contains the jobs
 public class MainPageActivityWorker extends AppCompatActivity {
 
     private WorkerJobAdapter workerJobAdapter;
@@ -47,9 +48,11 @@ public class MainPageActivityWorker extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        // -------------- for rating system pop-up ----------------------
         SharedPreferences sharedPreferences = getSharedPreferences("ratings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        // it checks if it is the first time the app is open or not, then show the pop-up windows
         if (sharedPreferences.getBoolean("appOpenFirstTimeWorker"+getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).getString("workerEmail",""), true)){
             editor.putBoolean("appOpenFirstTimeWorker"+getSharedPreferences("AppPrefs", Context.MODE_PRIVATE).getString("workerEmail",""),false);
             editor.apply();
@@ -66,12 +69,13 @@ public class MainPageActivityWorker extends AppCompatActivity {
 
         loadJobs();
 
-        // show the list of jobs
+        // show the list of jobs on listView
         listViewJobs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Job job = (Job) workerJobAdapter.getItem(position);
 
+                // pass the job information to the next activity
                 Intent intent = new Intent(MainPageActivityWorker.this, JobInformation.class);
                 intent.putExtra("JobId", job.getId());
                 intent.putExtra("JobOwnerId", job.getOwner_id());

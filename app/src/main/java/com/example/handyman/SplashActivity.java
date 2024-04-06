@@ -21,6 +21,8 @@ public class SplashActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         ((TextView) findViewById(R.id.textView)).animate().translationY(-300).setDuration(2700).setStartDelay(0);
+
+        // ---------- splash screen animation --------
         ((LottieAnimationView) findViewById(R.id.lottie)).animate().translationX(2000).setDuration(2000).setStartDelay(2900);
 
         TimerTask timerTask2 = new TimerTask() {

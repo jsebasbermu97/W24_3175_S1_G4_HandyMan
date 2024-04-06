@@ -74,14 +74,14 @@ public class Database extends SQLiteOpenHelper {
     }
 
     private void populateDefaultData(SQLiteDatabase db) {
-        // Insert default data for owners
+        // insert default data for owners
         addOwner(db,"Pirooz", "pirooz@gmail.com", "123456");
         addOwner(db,"Sebastian", "sebastian@gmail.com", "123456");
         addOwner(db,  "Alex", "alex@gmail.com", "123456");
         addOwner(db,"Maria", "maria@gmail.com", "123456");
         addOwner(db,"John", "john@gmail.com", "123456");
 
-        // Insert default data for workers
+        // insert default data for workers
         addWorker(db,"Carlos", "carlos@gmail.com", "Carpenter", "123456", "7520 1st St, Burnaby, BC V3N 3T2");
         addWorker(db,"Fiona", "fiona@gmail.com", "Electrician", "123456","8042 15th Ave, Burnaby, BC V3N 1X2");
         addWorker(db,"Erik", "erik@gmail.com", "Carpenter", "123456","350 SE Marine Dr, Vancouver, BC V5X 2S5");

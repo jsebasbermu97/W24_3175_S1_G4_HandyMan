@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-// to show worker profile and information
+// -------------- to show worker profile and information --------------
 public class WorkerProfileActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
@@ -43,6 +43,7 @@ public class WorkerProfileActivity extends AppCompatActivity implements OnMapRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker_profile);
 
+        // -------------- get worker data from bundle --------------
         Bundle bundle = getIntent().getExtras();
         int workerId = bundle.getInt("id", -1);
         String workerName = bundle.getString("Name", "");
@@ -57,7 +58,7 @@ public class WorkerProfileActivity extends AppCompatActivity implements OnMapRea
         textProfession.setText(workerProfession);
         textAddress.setText(workerAddress);
 
-        // Google maps extension here
+        // -------------- google maps --------------
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
 
@@ -68,7 +69,7 @@ public class WorkerProfileActivity extends AppCompatActivity implements OnMapRea
                 Intent intent = new Intent(WorkerProfileActivity.this, CreateJobActivity.class);
                 intent.putExtra("workerId", workerId);
 
-                // get owner id from SharedPreference
+                // -------------- get owner id from SharedPreference --------------
                 SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
                 intent.putExtra("ownerId", sharedPreferences.getInt("ownerId", -1));
 
@@ -78,28 +79,26 @@ public class WorkerProfileActivity extends AppCompatActivity implements OnMapRea
 
     }
 
+
+// -------------- google maps implementation --------------
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Enabling zoom controls for the user
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true); // enabling zoom controls for the user
         Bundle bundle = getIntent().getExtras();
         String workerAddress = bundle.getString("Address", "");
 
-        // Update the map with the provided address
-        updateMapWithAddress(workerAddress);
+        updateMapWithAddress(workerAddress); // update the map with the provided address
     }
     private void updateMapWithAddress(String address) {
         LatLng location = getLocationFromAddress(this, address);
 
-        // Move the camera to the specified location (address entered)
-        if (location != null) {
+        if (location != null) { // move the camera to the specified location (address entered)
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17.0f));
-            // Adding a marker at the specific location
-            mMap.addMarker(new MarkerOptions().position(location).title(address));
+            mMap.addMarker(new MarkerOptions().position(location).title(address)); // adding a marker at the specific location
         } else {
-            // Handle the case where the address couldn't be converted to coordinates
+            // if address doesn't exists
             Toast.makeText(this, "Could not find coordinates for the address", Toast.LENGTH_SHORT).show();
         }
     }

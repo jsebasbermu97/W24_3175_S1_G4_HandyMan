@@ -68,7 +68,7 @@ public class JobInformation extends AppCompatActivity {
         Log.d("owner name", ownerName);
 
 
-        // Open chat button logic
+        // ------------------ open chat button logic -----------------------
 
         Button buttonOpenChat = findViewById(R.id.btnOpenChat);
 

@@ -59,10 +59,11 @@ public class JobsFragment extends Fragment {
     }
 
 
+    // update the jobs when comes back to the page
     @Override
     public void onResume() {
         super.onResume();
-        loadJobs(); // update the jobs
+        loadJobs();
     }
 
     private void loadJobs() {

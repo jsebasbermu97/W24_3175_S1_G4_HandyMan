@@ -1,37 +1,7 @@
-plugins {
-    id("com.android.application")
-    id("com.google.gms.google-services")
-}
+# Prerequisite
 
-android {
-    namespace = "com.example.handyman"
-    compileSdk = 34
-
-    defaultConfig {
-        applicationId = "com.example.handyman"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    buildFeatures {
-        viewBinding = true
-    }
-}
-
+just copy and paste these dependencies into your `build.gradle(:app)`
+```agsl
 dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
     implementation("com.google.firebase:firebase-auth")
@@ -53,3 +23,4 @@ dependencies {
     implementation("androidx.biometric:biometric:1.1.0")
     implementation("com.airbnb.android:lottie:5.0.3")
 }
+```
